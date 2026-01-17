@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>💌 A Special Message | Manshu</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&display=swap"
+        rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+            /* Enable scroll if content is tall */
+            color: #fff;
+            padding: 50px;
+            /* Strong safe area from top/bottom */
+        }
+
+        /* ============================================
+       CUSTOM SCROLLBAR
+       ============================================ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff, #ff00ff, #00ff88);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ff88, #00d4ff, #ff00ff);
+        }
+
+        /* Video Background */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            /* Slight dark overlay for readability */
+            z-index: -1;
+        }
+
+
+
+        /* Message Card */
+        /* Message Card */
+        .card {
+            background: rgba(255, 255, 255, 0.15);
+            backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            padding: 20px;
+            /* Compact Padding */
+            max-width: 550px;
+            /* Reverted Width */
+            width: 90%;
+            text-align: center;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin: auto;
+            /* Prevent touching edges */
+            transform: translateY(30px);
+            opacity: 0;
+            animation: cardEntrance 1.2s cubic-bezier(0.2, 0.8, 0.2, 1) forwards;
+        }
+
+        @keyframes cardEntrance {
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Title */
+        .title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            /* Smaller Title */
+            color: #ffdd00;
+            /* Gold */
+            margin-bottom: 20px;
+            /* Reduced Margin */
+            text-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        .heart-icon {
+            display: inline-block;
+            animation: beat 1.5s infinite;
+        }
+
+        @keyframes beat {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.2);
+            }
+        }
+
+        /* Message Text */
+        /* Message Text */
+        .message-content {
+            font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+            /* Bigger Text */
+            line-height: 1.5;
+            /* Tight spacing to fit */
+            color: #fff;
+            margin-bottom: 25px;
+            font-weight: 500;
+            /* Richer weight */
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        /* Highlight First Line */
+        .message-line:nth-child(1) {
+            color: #ffdd00;
+            font-weight: 800;
+            font-size: 1.2em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 20px;
+        }
+
+        .message-line {
+            display: block;
+            margin-bottom: 15px;
+            opacity: 0;
+            transform: translateY(10px);
+            animation: fadeUp 0.8s ease forwards;
+        }
+
+        .message-line:nth-child(1) {
+            animation-delay: 0.5s;
+        }
+
+        .message-line:nth-child(2) {
+            animation-delay: 1.0s;
+        }
+
+        .message-line:nth-child(3) {
+            animation-delay: 1.5s;
+        }
+
+        .message-line:nth-child(4) {
+            animation-delay: 2.0s;
+        }
+
+        .message-line:nth-child(5) {
+            animation-delay: 2.5s;
+        }
+
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* Button */
+        .back-btn {
+            display: inline-block;
+            background: #ffdd00;
+            /* Gold */
+            color: #d63031;
+            /* Deep Red Text */
+            padding: 15px 40px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.1rem;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+            opacity: 0;
+            animation: fadeIn 0.5s ease 3.5s forwards;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        .back-btn:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 30px rgba(0, 0, 0, 0.3);
+            background: #fff;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        /* Floating Hearts */
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            pointer-events: none;
+            animation: floatUp 4s linear forwards;
+        }
+
+        @keyframes floatUp {
+            to {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- Background Video -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="Asset r/bg5.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <div class="card">
+        <h1 class="title">A Special Message for You <span class="heart-icon">💌</span></h1>
+
+        <div class="message-content">
+            <span class="message-line">Happy Birthday to my Bhai, Himanshu! 🌟</span>
+            <span class="message-line">Bhai, tu sirf dost nahi, meri puri duniya hai. ❤️</span>
+            <span class="message-line">Tere bina life bilkul boring hoti, tu hai toh sab sahi lagta hai. ✨</span>
+            <span class="message-line">Har problem ka solution aur har khushi ki wajah tu hi hai. 💫</span>
+            <span class="message-line">Bas hamesha aise hi rehna, kyuki tere jaisa aur koi nahi!</span>
+            <span class="message-line" style="margin-top: 20px; font-size: 1.3rem; color: #ffeb3b;">May your future be
+                as bright as your smile. Stay successful, stay healthy, and keep winning! 🚀</span>
+            <span class="message-line"
+                style="color: #ff00ff; font-size: 1.8rem; margin-top: 25px; text-shadow: 0 0 10px rgba(255,0,255,0.5);">Love
+                You Bro! ❤️</span>
+        </div>
+
+        <div style="font-size: 2rem; margin-bottom: 30px;">
+            💖 ✨ 🎁
+        </div>
+
+        <a href="index.html" class="back-btn">Back to Start 🏠</a>
+    </div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="allbg.mp3" type="audio/mpeg">
+        <source src="allbg.mp3" type="audio/mpeg">
+    </audio>
+
+    <script>
+        // Removed: Background Particles
+
+
+        // Floating Hearts on Move
+        document.body.addEventListener('mousemove', (e) => {
+            if (Math.random() > 0.9) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.innerText = '💖';
+                heart.style.left = e.clientX + 'px';
+                heart.style.top = e.clientY + 'px';
+                document.body.appendChild(heart);
+                setTimeout(() => heart.remove(), 4000);
+            }
+        });
+
+        // Auto Play Music
+        document.body.addEventListener('click', () => {
+            document.getElementById('bgMusic').play();
+        }, { once: true });
+
+        const audio = document.getElementById('bgMusic');
+        audio.volume = 0.5;
+        audio.play().catch(() => { });
+    </script>
+    <script src="music.js"></script>
+</body>
+
+</html>

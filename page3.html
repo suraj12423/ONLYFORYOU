@@ -1,0 +1,1103 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="description" content="Memory Archive - Special Moments">
+    <title>📸 Memory Archive | Manshu</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Poppins:wght@300;400;600;700&family=Dancing+Script:wght@700&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ===== RESET ===== */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html,
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: transparent;
+            color: #fff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            -webkit-tap-highlight-color: transparent;
+            zoom: 1;
+            /* Reset for mobile */
+        }
+
+        /* SMART ZOOM: Cinematic view only for Desktop */
+        @media (min-width: 1024px) {
+            body {
+                zoom: 90%;
+            }
+        }
+
+        /* ============================================
+       CUSTOM SCROLLBAR
+       ============================================ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff, #ff00ff, #00ff88);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ff88, #00d4ff, #ff00ff);
+        }
+
+        /* ===== ANIMATED BACKGROUND ===== */
+        .bg-animated {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, #0f0c29 0%, #302b63 50%, #24243e 100%);
+            z-index: -3;
+        }
+
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                radial-gradient(2px 2px at 20px 30px, #fff, transparent),
+                radial-gradient(2px 2px at 40px 70px, rgba(255, 255, 255, 0.8), transparent),
+                radial-gradient(1px 1px at 90px 40px, #fff, transparent),
+                radial-gradient(2px 2px at 160px 120px, rgba(255, 255, 255, 0.6), transparent),
+                radial-gradient(1px 1px at 230px 80px, #fff, transparent),
+                radial-gradient(2px 2px at 300px 150px, #fff, transparent);
+            background-size: 350px 350px;
+            z-index: -1;
+            animation: twinkle 4s ease-in-out infinite alternate;
+        }
+
+        @keyframes twinkle {
+            0% {
+                opacity: 0.5;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+
+        /* ===== NAVIGATION ===== */
+        .nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .nav-btn {
+            padding: 12px 24px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 30px;
+            color: #fff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.8rem;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 212, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* ===== MAIN CONTAINER ===== */
+        .container {
+            min-height: 100vh;
+            padding: 100px 20px 60px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            z-index: 10;
+        }
+
+        /* ===== PAGE TITLE ===== */
+        .page-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, #00d4ff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.8));
+        }
+
+        .page-subtitle {
+            font-size: clamp(0.95rem, 2.2vw, 1.2rem);
+            color: #fff;
+            text-align: center;
+            margin-bottom: 50px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.8);
+            background: rgba(0, 0, 0, 0.3);
+            padding: 10px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        /* ===== 3D ROTATING CAROUSEL ===== */
+        .carousel-section {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.5rem, 3.5vw, 2.5rem);
+            color: #00d4ff;
+            text-align: center;
+            margin-bottom: 35px;
+            text-shadow: 0 0 30px rgba(0, 212, 255, 0.8), 0 2px 10px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 30px;
+            border-radius: 25px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(0, 212, 255, 0.3);
+        }
+
+        .carousel-wrapper {
+            perspective: 1200px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: clamp(280px, 40vw, 380px);
+            width: 100%;
+        }
+
+        .carousel-3d {
+            position: relative;
+            width: clamp(160px, 22vw, 220px);
+            height: clamp(220px, 30vw, 300px);
+            transform-style: preserve-3d;
+            animation: rotate3D 25s linear infinite;
+        }
+
+        @keyframes rotate3D {
+            from {
+                transform: rotateY(0deg);
+            }
+
+            to {
+                transform: rotateY(360deg);
+            }
+        }
+
+        .carousel-item {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px;
+            overflow: hidden;
+            border: 3px solid rgba(0, 212, 255, 0.5);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.4), 0 0 20px rgba(0, 212, 255, 0.2);
+            cursor: pointer;
+        }
+
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .carousel-item:nth-child(1) {
+            transform: rotateY(0deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        .carousel-item:nth-child(2) {
+            transform: rotateY(60deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        .carousel-item:nth-child(3) {
+            transform: rotateY(120deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        .carousel-item:nth-child(4) {
+            transform: rotateY(180deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        .carousel-item:nth-child(5) {
+            transform: rotateY(240deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        .carousel-item:nth-child(6) {
+            transform: rotateY(300deg) translateZ(clamp(200px, 28vw, 320px));
+        }
+
+        /* ===== PHOTO GRID ===== */
+        .grid-section {
+            width: 100%;
+            max-width: 1200px;
+            margin-bottom: 80px;
+        }
+
+        .grid-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(2rem, 4vw, 3rem);
+            color: #ff00ff;
+            text-align: center;
+            margin-bottom: 40px;
+            text-shadow: 0 0 30px rgba(255, 0, 255, 0.8), 0 2px 10px rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.4);
+            padding: 15px 40px;
+            border-radius: 30px;
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(255, 0, 255, 0.3);
+        }
+
+        .photo-grid {
+            display: grid;
+            /* Force 3 items per row on desktop */
+            grid-template-columns: repeat(3, 1fr);
+            gap: 60px;
+            /* Increased spacing */
+            padding: 0 20px;
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media (max-width: 1024px) {
+            .photo-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-grid {
+                grid-template-columns: 1fr;
+                /* 1 Column on Mobile for best view */
+            }
+        }
+
+        /* FLIP CARD STYLES */
+        .flip-card {
+            background-color: transparent;
+            perspective: 1000px;
+            width: 100%;
+            aspect-ratio: 3 / 4;
+            /* 960x1280 Aspect Ratio */
+            height: auto;
+            cursor: pointer;
+        }
+
+        .flip-card-inner {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            text-align: center;
+            transition: transform 0.8s;
+            transform-style: preserve-3d;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5);
+        }
+
+        .flip-card.flipped .flip-card-inner {
+            transform: rotateY(180deg);
+        }
+
+        .flip-card-front,
+        .flip-card-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            -webkit-backface-visibility: hidden;
+            backface-visibility: hidden;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .flip-card-front {
+            background: #000;
+        }
+
+        .flip-card-front img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .flip-card-front .label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            padding: 10px;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 1.1rem;
+            color: #ff00ff;
+            text-align: center;
+            background: rgba(0, 0, 0, 0.7);
+            backdrop-filter: blur(5px);
+            font-weight: 700;
+        }
+
+        @keyframes gradientText {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        @keyframes borderGlow {
+            0% {
+                border-color: #ff00ff;
+                box-shadow: 0 0 10px #ff00ff, inset 0 0 10px rgba(255, 0, 255, 0.2);
+            }
+
+            50% {
+                border-color: #00d4ff;
+                box-shadow: 0 0 20px #00d4ff, inset 0 0 20px rgba(0, 212, 255, 0.2);
+            }
+
+            100% {
+                border-color: #ff00ff;
+                box-shadow: 0 0 10px #ff00ff, inset 0 0 10px rgba(255, 0, 255, 0.2);
+            }
+        }
+
+        .flip-card-back {
+            /* Amazing Colorful Holographic Gradient */
+            background: linear-gradient(45deg, #ff0000, #ff7300, #fffb00, #48ff00, #00ffd5, #002bff, #7a00ff, #ff00c8, #ff0000);
+            background-size: 400% 400%;
+            animation: gradientBG 5s ease infinite, borderGlow 3s infinite ease-in-out;
+            transform: rotateY(180deg);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            border: 3px solid #fff;
+            /* White border to pop against colors */
+            box-shadow: 0 0 15px rgba(255, 255, 255, 0.5);
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* Shine Effect Overlay */
+        .flip-card-back::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transform: rotate(45deg);
+            animation: shineMove 3s infinite linear;
+        }
+
+        @keyframes shineMove {
+            0% {
+                transform: translateY(-100%) rotate(45deg);
+            }
+
+            100% {
+                transform: translateY(100%) rotate(45deg);
+            }
+        }
+
+        @keyframes neonPulse {
+
+            0%,
+            100% {
+                text-shadow: 0 0 10px rgba(0, 0, 0, 0.8), 0 0 20px rgba(0, 0, 0, 0.5);
+            }
+
+            50% {
+                text-shadow: 0 0 20px rgba(0, 0, 0, 0.8), 0 0 30px rgba(0, 0, 0, 0.5);
+            }
+        }
+
+        .flip-card-back p {
+            font-family: 'Dancing Script', cursive;
+            font-size: 2.2rem;
+            text-align: center;
+            line-height: 1.4;
+            font-weight: 700;
+            color: #ffffff;
+            z-index: 2;
+            /* Improved contrast against colorful BG */
+            text-shadow: 3px 3px 0px rgba(0, 0, 0, 0.5);
+            animation: neonPulse 2s infinite alternate;
+        }
+
+
+
+        /* ===== LIGHTBOX ===== */
+        .lightbox {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2000;
+        }
+
+        .lightbox.active {
+            display: flex;
+        }
+
+        .lightbox img {
+            max-width: 90%;
+            max-height: 85vh;
+            border-radius: 15px;
+            box-shadow: 0 0 50px rgba(0, 212, 255, 0.3);
+        }
+
+        .lightbox-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            border-radius: 50%;
+            color: #fff;
+            font-size: 1.3rem;
+            cursor: pointer;
+        }
+
+        /* ===== GIF ROW ===== */
+        .gif-row {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 30px;
+        }
+
+        .gif-row img {
+            width: clamp(60px, 10vw, 80px);
+            border-radius: 12px;
+            transition: transform 0.3s ease;
+        }
+
+        .gif-row img:hover {
+            transform: scale(1.15);
+        }
+
+        /* ===== GRADIENT TITLES (MISSION MANSHU STYLE) ===== */
+        .section-title,
+        .grid-title,
+        .page-title,
+        .final-caption,
+        .page-subtitle {
+            background: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #ff00ff 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: none !important;
+            /* Remove black shadow */
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4)) !important;
+            /* Soft colorful glow */
+            font-weight: 900 !important;
+            backdrop-filter: none !important;
+            letter-spacing: 1px !important;
+            border: none !important;
+            box-shadow: none !important;
+        }
+
+        .photo-card .label {
+            background: rgba(0, 0, 0, 0.85) !important;
+            color: #fff !important;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px #000;
+            border-top: 2px solid #ff00ff;
+        }
+
+        /* Ensure mouse effects are on top with pointer-events none */
+        .cursor-trail,
+        .click-burst div,
+        .floating-particles div {
+            pointer-events: none !important;
+            z-index: 9999 !important;
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media (max-width: 768px) {
+            .nav {
+                padding: 12px 15px;
+            }
+
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 0.7rem;
+            }
+
+            .container {
+                padding: 90px 15px 50px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .carousel-wrapper {
+                height: 250px;
+            }
+
+            .carousel-3d {
+                width: 130px;
+                height: 180px;
+            }
+
+            .carousel-item:nth-child(1) {
+                transform: rotateY(0deg) translateZ(160px);
+            }
+
+            .carousel-item:nth-child(2) {
+                transform: rotateY(60deg) translateZ(160px);
+            }
+
+            .carousel-item:nth-child(3) {
+                transform: rotateY(120deg) translateZ(160px);
+            }
+
+            .carousel-item:nth-child(4) {
+                transform: rotateY(180deg) translateZ(160px);
+            }
+
+            .carousel-item:nth-child(5) {
+                transform: rotateY(240deg) translateZ(160px);
+            }
+
+            .carousel-item:nth-child(6) {
+                transform: rotateY(300deg) translateZ(160px);
+            }
+        }
+
+        /* Fix for Emojis inside Gradient Text */
+        .emoji-fix {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            text-shadow: none !important;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+            font-style: normal !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- VIDEO BACKGROUND -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="Asset r/video2.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <!-- Audio -->
+    <audio id="bgMusic" loop>
+        <source src="allbg.mp3" type="audio/mpeg">
+        <source src="allbg.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- Navigation -->
+    <nav class="nav">
+        <a href="page2.html" class="nav-btn">← BACK</a>
+        <a href="page4.html" class="nav-btn">NEXT →</a>
+    </nav>
+
+    <!-- Lightbox -->
+    <div class="lightbox" id="lightbox">
+        <button class="lightbox-close" onclick="closeLightbox()">✕</button>
+        <img src="" id="lightboxImg" alt="Full Image">
+    </div>
+
+    <!-- Main Content -->
+    <div class="container">
+        <h1 class="page-title"><span class="emoji-fix">📸</span> MEMORY ARCHIVE <span class="emoji-fix">📸</span></h1>
+        <p class="page-subtitle">Every moment with you is a treasure! ✨</p>
+
+        <!-- 3D Rotating Carousel -->
+        <div class="carousel-section">
+            <h2 class="section-title"><span class="emoji-fix">📸</span> Legendary Moments with You <span
+                    class="emoji-fix">📸</span></h2>
+            <div class="carousel-wrapper">
+                <div class="carousel-3d">
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img1.jpg')">
+                        <img src="Asset r/img1.jpg" alt="Memory 1">
+                    </div>
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img2.jpg')">
+                        <img src="Asset r/img2.jpg" alt="Memory 2">
+                    </div>
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img3.jpg')">
+                        <img src="Asset r/img3.jpg" alt="Memory 3">
+                    </div>
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img4.jpg')">
+                        <img src="Asset r/img4.jpg" alt="Memory 4">
+                    </div>
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img5.jpg')">
+                        <img src="Asset r/img5.jpg" alt="Memory 5">
+                    </div>
+                    <div class="carousel-item" onclick="openLightbox('Asset r/img6.jpg')">
+                        <img src="Asset r/img6.jpg" alt="Memory 6">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Photo Grid -->
+        <div class="grid-section">
+            <h2 class="grid-title"><span class="emoji-fix">💜</span> Bro Moments <span class="emoji-fix">💜</span></h2>
+            <div class="photo-grid">
+                <!-- 1 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/1.jpg" alt="Bro 1">
+                            <div class="label">Epic #1</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Global Domination Plans 🌍</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 2 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/2.jpg" alt="Bro 2">
+                            <div class="label">Epic #2</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Partners in Crime 🕵️‍♂️</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 3 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/3.jpg" alt="Bro 3">
+                            <div class="label">Epic #3</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Unstoppable Duo 🚀</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 4 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/4.jpg" alt="Bro 4">
+                            <div class="label">Epic #4</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Pure Legends 👑</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 5 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/5.jpg" alt="Bro 5">
+                            <div class="label">Epic #5</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Vibes on 100 🔥</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- 6 -->
+                <div class="flip-card" onclick="this.classList.toggle('flipped')">
+                    <div class="flip-card-inner">
+                        <div class="flip-card-front">
+                            <img src="Asset r/6.jpg" alt="Bro 6">
+                            <div class="label">Epic #6</div>
+                        </div>
+                        <div class="flip-card-back">
+                            <p>Brotherhood ✨</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- GIFs -->
+        <div class="gif-row">
+            <img src="assets/cilukba.gif" alt="">
+            <img src="assets/pusn.gif" alt="">
+            <img src="assets/pandamuter.gif" alt="">
+        </div>
+
+        <p class="final-caption">These memories are forever! 🔥💯</p>
+    </div>
+
+    // ============================================
+    // LIGHTBOX FUNCTIONALITY
+    // ============================================
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImg = document.getElementById('lightboxImg');
+
+    function openLightbox(src) {
+    lightboxImg.src = src;
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+
+    // Add zoom animation
+    lightboxImg.style.transform = 'scale(0.8)';
+    setTimeout(() => {
+    lightboxImg.style.transform = 'scale(1)';
+    }, 50);
+    }
+
+    function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+    }
+
+    lightbox.addEventListener('click', e => {
+    if (e.target === lightbox) closeLightbox();
+    });
+
+    document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') closeLightbox();
+    });
+
+    // ============================================
+    // MUSIC AUTOPLAY
+    // ============================================
+    const bgMusic = document.getElementById('bgMusic');
+    bgMusic.volume = 0.5;
+    bgMusic.play().catch(() => { });
+
+    // ============================================
+    // 3D CAROUSEL AUTO-ROTATION
+    // ============================================
+    const carousel = document.querySelector('.carousel-3d');
+    let rotationAngle = 0;
+    let isHovering = false;
+
+    carousel.addEventListener('mouseenter', () => {
+    isHovering = true;
+    });
+
+    carousel.addEventListener('mouseleave', () => {
+    isHovering = false;
+    });
+
+    setInterval(() => {
+    if (!isHovering) {
+    rotationAngle += 0.5;
+    carousel.style.transform = `rotateY(${rotationAngle}deg)`;
+    }
+    }, 50);
+
+    // ============================================
+    // FLOATING MEMORY BUBBLES
+    // ============================================
+    function createMemoryBubbles() {
+    setInterval(() => {
+    const bubble = document.createElement('div');
+    const emojis = ['📸', '💭', '🎬', '📷', '🖼️', '✨'];
+    bubble.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    bubble.style.cssText = `
+    position: fixed;
+    left: ${Math.random() * 100}%;
+    bottom: -50px;
+    font-size: ${Math.random() * 15 + 20}px;
+    pointer-events: none;
+    z-index: 5;
+    opacity: 0.6;
+    animation: floatMemory ${Math.random() * 4 + 5}s ease-out forwards;
+    `;
+    document.body.appendChild(bubble);
+
+    setTimeout(() => {
+    if (bubble && bubble.parentNode) {
+    bubble.parentNode.removeChild(bubble);
+    }
+    }, 9000);
+    }, 4000);
+    }
+
+    const memoryStyle = document.createElement('style');
+    memoryStyle.textContent = `
+    @keyframes floatMemory {
+    0% {
+    bottom: -50px;
+    opacity: 0;
+    }
+    20% {
+    opacity: 0.8;
+    }
+    100% {
+    bottom: 110vh;
+    opacity: 0;
+    transform: translateX(${Math.random() * 50 - 25}px) rotate(360deg);
+    }
+    }
+    `;
+    document.head.appendChild(memoryStyle);
+    createMemoryBubbles();
+
+    // ============================================
+    // PHOTO CARD HOVER EFFECTS
+    // ============================================
+    document.querySelectorAll('.photo-card').forEach(card => {
+    card.addEventListener('mouseenter', () => {
+    card.style.transform = 'translateY(-10px) scale(1.05)';
+    card.style.boxShadow = '0 20px 60px rgba(255,0,255,0.5)';
+    });
+
+    card.addEventListener('mouseleave', () => {
+    card.style.transform = 'translateY(0) scale(1)';
+    card.style.boxShadow = '0 10px 30px rgba(0,0,0,0.3)';
+    });
+    });
+
+    // ============================================
+    // SPARKLE TRAIL ON MOUSE MOVE
+    // ============================================
+    let sparkleTimeout;
+    document.addEventListener('mousemove', (e) => {
+    if (Math.random() > 0.8) {
+    const sparkle = document.createElement('div');
+    sparkle.textContent = '✨';
+    sparkle.style.cssText = `
+    position: fixed;
+    left: ${e.clientX}px;
+    top: ${e.clientY}px;
+    font-size: ${Math.random() * 8 + 12}px;
+    pointer-events: none;
+    z-index: 9999;
+    animation: sparkleAway 1.2s ease-out forwards;
+    `;
+    document.body.appendChild(sparkle);
+
+    setTimeout(() => {
+    if (sparkle && sparkle.parentNode) {
+    sparkle.parentNode.removeChild(sparkle);
+    }
+    }, 1200);
+    }
+    });
+
+    const sparkleAwayStyle = document.createElement('style');
+    sparkleAwayStyle.textContent = `
+    @keyframes sparkleAway {
+    to {
+    opacity: 0;
+    transform: translateY(-40px) scale(0.3);
+    }
+    }
+    `;
+    document.head.appendChild(sparkleAwayStyle);
+
+    // ============================================
+    // CAROUSEL ITEM CLICK EFFECTS
+    // ============================================
+    document.querySelectorAll('.carousel-item').forEach(item => {
+    item.addEventListener('click', () => {
+    // Create ripple effect
+    const ripple = document.createElement('div');
+    ripple.style.cssText = `
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(255,255,255,0.8), transparent);
+    border-radius: 15px;
+    pointer-events: none;
+    animation: rippleEffect 0.6s ease-out;
+    `;
+    item.appendChild(ripple);
+
+    setTimeout(() => {
+    if (ripple && ripple.parentNode) {
+    ripple.parentNode.removeChild(ripple);
+    }
+    }, 600);
+    });
+    });
+
+    const rippleStyle = document.createElement('style');
+    rippleStyle.textContent = `
+    @keyframes rippleEffect {
+    from {
+    opacity: 1;
+    transform: scale(0);
+    }
+    to {
+    opacity: 0;
+    transform: scale(2);
+    }
+    }
+    `;
+    document.head.appendChild(rippleStyle);
+
+    // ============================================
+    // SCROLL REVEAL ANIMATIONS
+    // ============================================
+    const observerOptions = {
+    threshold: 0.15,
+    rootMargin: '0px 0px -50px 0px'
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+    if (entry.isIntersecting) {
+    entry.target.style.opacity = '1';
+    entry.target.style.transform = 'translateY(0)';
+    }
+    });
+    }, observerOptions);
+
+    document.querySelectorAll('.photo-card, .section-title, .grid-title').forEach((el, index) => {
+    el.style.opacity = '0';
+    el.style.transform = 'translateY(30px)';
+    el.style.transition = `all 0.8s ease ${index * 0.1}s`;
+    observer.observe(el);
+    });
+
+    // ============================================
+    // RANDOM CAMERA FLASH EFFECT
+    // ============================================
+    setInterval(() => {
+    if (Math.random() > 0.85) {
+    const flash = document.createElement('div');
+    flash.textContent = '📸';
+    flash.style.cssText = `
+    position: fixed;
+    left: ${Math.random() * 100}%;
+    top: ${Math.random() * 100}%;
+    font-size: ${Math.random() * 20 + 30}px;
+    pointer-events: none;
+    z-index: 8;
+    animation: cameraFlash 1.5s ease-out forwards;
+    `;
+    document.body.appendChild(flash);
+
+    setTimeout(() => {
+    if (flash && flash.parentNode) {
+    flash.parentNode.removeChild(flash);
+    }
+    }, 1500);
+    }
+    }, 4000);
+
+    const flashStyle = document.createElement('style');
+    flashStyle.textContent = `
+    @keyframes cameraFlash {
+    0% {
+    opacity: 0;
+    transform: scale(0.5) rotate(0deg);
+    }
+    30% {
+    opacity: 1;
+    transform: scale(1.2) rotate(15deg);
+    }
+    100% {
+    opacity: 0;
+    transform: scale(0.8) rotate(360deg);
+    }
+    }
+    `;
+    document.head.appendChild(flashStyle);
+
+    // ============================================
+    // TITLE GLOW PULSE
+    // ============================================
+    const pageTitle = document.querySelector('.page-title');
+    if (pageTitle) {
+    setInterval(() => {
+    pageTitle.style.filter = 'drop-shadow(0 0 30px rgba(0,212,255,1))';
+    setTimeout(() => {
+    pageTitle.style.filter = 'drop-shadow(0 0 20px rgba(0,212,255,0.8))';
+    }, 500);
+    }, 2000);
+    }
+
+    // ============================================
+    // CONSOLE MESSAGE
+    // ============================================
+    console.log('%c📸 MEMORY ARCHIVE LOADED! 📸', 'font-size: 24px; font-weight: bold; color: #00d4ff; text-shadow: 2px
+    2px 4px rgba(0,0,0,0.5);');
+    console.log('%cEvery moment with you is precious! 💖', 'font-size: 14px; color: #ff00ff;');
+    </script>
+    <script src="music.js"></script>
+</body>
+
+</html>

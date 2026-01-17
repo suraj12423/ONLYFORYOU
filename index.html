@@ -1,0 +1,1340 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="A special birthday surprise for Manshu">
+  <meta name="theme-color" content="#00d4ff">
+  <title>🎂 HAPPY BIRTHDAY HIMANSHU | Birthday Surprise</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Dancing+Script:wght@400;500;600;700&display=swap"
+    rel="stylesheet">
+
+  <style>
+    /* ============================================
+       RESET & BASE STYLES
+       ============================================ */
+    *,
+    *::before,
+    *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px;
+    }
+
+    body {
+      font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: linear-gradient(135deg, #0a0a1a 0%, #1a1a3e 50%, #0a0a1a 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    /* SMART ZOOM: Cinematic view only for Desktop */
+    @media (min-width: 1024px) {
+      body {
+        zoom: 90%;
+      }
+    }
+
+    /* ============================================
+       CUSTOM SCROLLBAR
+       ============================================ */
+    ::-webkit-scrollbar {
+      width: 10px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.5);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(180deg, #00d4ff, #ff00ff, #00ff88);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(180deg, #00ff88, #00d4ff, #ff00ff);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(135deg, #00d4ff, #00ff88);
+      border-radius: 10px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(135deg, #00ff88, #00d4ff);
+    }
+
+    /* ============================================
+       LOADING SCREEN
+       ============================================ */
+    #loading-screen {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, #000000 0%, #0a0a2e 100%);
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      z-index: 10000;
+      transition: opacity 0.8s ease, visibility 0.8s ease;
+    }
+
+    #loading-screen.hidden {
+      opacity: 0;
+      visibility: hidden;
+      pointer-events: none;
+    }
+
+    .loading-logo {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #00d4ff, #00ff88, #ff00ff);
+      background-size: 200% 200%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 2s ease infinite;
+      margin-bottom: 30px;
+    }
+
+    .loading-bar-container {
+      width: 200px;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 10px;
+      overflow: hidden;
+      margin-bottom: 20px;
+    }
+
+    .loading-bar {
+      width: 0%;
+      height: 100%;
+      background: linear-gradient(90deg, #00d4ff, #00ff88);
+      border-radius: 10px;
+      animation: loadingProgress 2s ease forwards;
+    }
+
+    @keyframes loadingProgress {
+      0% {
+        width: 0%;
+      }
+
+      50% {
+        width: 70%;
+      }
+
+      100% {
+        width: 100%;
+      }
+    }
+
+    .loading-text {
+      font-size: 0.9rem;
+      color: rgba(255, 255, 255, 0.5);
+      letter-spacing: 0.2em;
+      animation: pulse 1.5s infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        opacity: 0.5;
+      }
+
+      50% {
+        opacity: 1;
+      }
+    }
+
+    /* ============================================
+       BACKGROUND VIDEO & OVERLAY
+       ============================================ */
+    .bg-video {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      z-index: -2;
+      opacity: 0.8;
+    }
+
+    .bg-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg,
+          rgba(0, 0, 0, 0.4) 0%,
+          rgba(0, 20, 40, 0.5) 50%,
+          rgba(0, 0, 0, 0.4) 100%);
+      z-index: -1;
+    }
+
+    .noise-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      opacity: 0.03;
+      z-index: -1;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+    }
+
+    /* ============================================
+       FLOATING PARTICLES
+       ============================================ */
+    .particles-container {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      pointer-events: none;
+      z-index: 0;
+      overflow: hidden;
+    }
+
+    .particle {
+      position: absolute;
+      border-radius: 50%;
+      animation: floatParticle linear infinite;
+      opacity: 0;
+    }
+
+    .particle-glow {
+      background: radial-gradient(circle, rgba(0, 212, 255, 0.8), transparent);
+    }
+
+    .particle-star {
+      background: radial-gradient(circle, rgba(255, 255, 255, 0.9), transparent);
+    }
+
+    .particle-magic {
+      background: radial-gradient(circle, rgba(255, 0, 255, 0.6), transparent);
+    }
+
+    @keyframes floatParticle {
+      0% {
+        transform: translateY(100vh) rotate(0deg) scale(0);
+        opacity: 0;
+      }
+
+      10% {
+        opacity: 1;
+        transform: translateY(90vh) rotate(36deg) scale(1);
+      }
+
+      90% {
+        opacity: 1;
+        transform: translateY(10vh) rotate(324deg) scale(1);
+      }
+
+      100% {
+        transform: translateY(-50px) rotate(360deg) scale(0);
+        opacity: 0;
+      }
+    }
+
+    /* ============================================
+       FLOATING ORBS (DECORATIVE)
+       ============================================ */
+    .orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(60px);
+      opacity: 0.3;
+      z-index: -1;
+      animation: orbFloat 20s ease-in-out infinite;
+    }
+
+    .orb-1 {
+      width: 400px;
+      height: 400px;
+      background: linear-gradient(135deg, #00d4ff, #0066ff);
+      top: -100px;
+      left: -100px;
+      animation-delay: 0s;
+    }
+
+    .orb-2 {
+      width: 300px;
+      height: 300px;
+      background: linear-gradient(135deg, #ff00ff, #ff0066);
+      bottom: -50px;
+      right: -50px;
+      animation-delay: -5s;
+    }
+
+    .orb-3 {
+      width: 250px;
+      height: 250px;
+      background: linear-gradient(135deg, #00ff88, #00d4ff);
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      animation-delay: -10s;
+    }
+
+    @keyframes orbFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0) scale(1);
+      }
+
+      25% {
+        transform: translate(30px, -30px) scale(1.1);
+      }
+
+      50% {
+        transform: translate(-20px, 20px) scale(0.9);
+      }
+
+      75% {
+        transform: translate(10px, 10px) scale(1.05);
+      }
+    }
+
+    /* ============================================
+       MAIN CONTAINER
+       ============================================ */
+    .main-container {
+      position: relative;
+      z-index: 10;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 40px 20px;
+    }
+
+    /* ============================================
+       CUTE AVATAR (TOP)
+       ============================================ */
+    .cute-avatar {
+      width: clamp(100px, 15vw, 140px);
+      height: auto;
+      margin-bottom: 25px;
+      filter: drop-shadow(0 10px 30px rgba(0, 212, 255, 0.5));
+      animation: avatarBounce 3s ease-in-out infinite;
+      transition: transform 0.3s ease;
+    }
+
+    .cute-avatar:hover {
+      transform: scale(1.1) rotate(5deg);
+    }
+
+    @keyframes avatarBounce {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(0deg);
+      }
+
+      25% {
+        transform: translateY(-15px) rotate(-3deg);
+      }
+
+      50% {
+        transform: translateY(-5px) rotate(0deg);
+      }
+
+      75% {
+        transform: translateY(-15px) rotate(3deg);
+      }
+    }
+
+    /* ============================================
+       MISSION TITLE
+       ============================================ */
+    .mission-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 5vw, 4rem);
+      /* Reduced to fit longer text */
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      /* Reduced spacing */
+      margin-bottom: 15px;
+      position: relative;
+      background: linear-gradient(135deg,
+          #00d4ff 0%,
+          #00ff88 25%,
+          #ffff00 50%,
+          #ff00ff 75%,
+          #00d4ff 100%);
+      background-size: 300% 300%;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      animation: gradientShift 4s ease infinite, textGlow 2s ease-in-out infinite alternate;
+      white-space: nowrap;
+      /* Force one line if possible, clamp handles size */
+    }
+
+    @keyframes gradientShift {
+      0% {
+        background-position: 0% 50%;
+      }
+
+      50% {
+        background-position: 100% 50%;
+      }
+
+      100% {
+        background-position: 0% 50%;
+      }
+    }
+
+    @keyframes textGlow {
+      from {
+        filter: drop-shadow(0 0 20px rgba(0, 212, 255, 0.5));
+      }
+
+      to {
+        filter: drop-shadow(0 0 40px rgba(0, 212, 255, 0.8)) drop-shadow(0 0 60px rgba(0, 255, 136, 0.4));
+      }
+    }
+
+    .mission-title::before {
+      content: 'HAPPY BIRTHDAY';
+      position: absolute;
+      top: 0;
+      left: 0;
+      z-index: -1;
+      background: linear-gradient(135deg, #00d4ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      filter: blur(20px);
+      opacity: 0.5;
+    }
+
+    /* ============================================
+       SUBTITLE
+       ============================================ */
+    .subtitle {
+      font-size: clamp(0.9rem, 2.5vw, 1.4rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.7);
+      letter-spacing: 0.4em;
+      margin-bottom: 50px;
+      text-transform: uppercase;
+    }
+
+    .subtitle .emoji {
+      display: inline-block;
+      animation: emojiPop 2s ease-in-out infinite;
+    }
+
+    .subtitle .emoji:nth-child(1) {
+      animation-delay: 0s;
+    }
+
+    .subtitle .emoji:nth-child(2) {
+      animation-delay: 0.5s;
+    }
+
+    @keyframes emojiPop {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.3);
+      }
+    }
+
+    /* ============================================
+       GLASSMORPHISM ENTRY FORM
+       ============================================ */
+    .entry-form {
+      background: rgba(255, 255, 255, 0.03);
+      backdrop-filter: blur(25px);
+      -webkit-backdrop-filter: blur(25px);
+      border: 1px solid rgba(255, 255, 255, 0.08);
+      border-radius: 35px;
+      padding: clamp(30px, 5vw, 50px);
+      max-width: 500px;
+      width: 95%;
+      box-shadow:
+        0 30px 60px rgba(0, 0, 0, 0.4),
+        0 0 50px rgba(0, 212, 255, 0.1),
+        inset 0 0 50px rgba(255, 255, 255, 0.02);
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .entry-form:hover {
+      transform: translateY(-5px);
+      box-shadow:
+        0 40px 80px rgba(0, 0, 0, 0.5),
+        0 0 60px rgba(0, 212, 255, 0.15),
+        inset 0 0 50px rgba(255, 255, 255, 0.02);
+    }
+
+    .entry-form::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.05),
+          transparent);
+      transition: left 0.5s ease;
+    }
+
+    .entry-form:hover::before {
+      left: 100%;
+    }
+
+    /* Lock Icon */
+    .lock-icon {
+      font-size: clamp(2.5rem, 5vw, 3.5rem);
+      margin-bottom: 20px;
+      animation: lockPulse 2s ease-in-out infinite;
+    }
+
+    @keyframes lockPulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.15);
+      }
+    }
+
+    /* Form Title */
+    .form-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.1rem, 3vw, 1.5rem);
+      font-weight: 700;
+      background: linear-gradient(135deg, #00d4ff, #00ff88);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 10px;
+    }
+
+    /* Form Hint */
+    .form-hint {
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 300;
+      color: rgba(255, 255, 255, 0.5);
+      margin-bottom: 30px;
+    }
+
+    /* Input Wrapper */
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 25px;
+    }
+
+    .name-input {
+      width: 100%;
+      padding: 20px 60px 20px 25px;
+      font-size: clamp(1rem, 2.5vw, 1.2rem);
+      font-family: 'Poppins', sans-serif;
+      font-weight: 400;
+      background: rgba(255, 255, 255, 0.06);
+      border: 2px solid rgba(0, 212, 255, 0.25);
+      border-radius: 60px;
+      color: #ffffff;
+      outline: none;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .name-input:focus {
+      border-color: #00d4ff;
+      box-shadow:
+        0 0 30px rgba(0, 212, 255, 0.3),
+        inset 0 0 20px rgba(0, 212, 255, 0.05);
+      transform: scale(1.02);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    .name-input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+      font-weight: 300;
+    }
+
+    .input-emoji {
+      position: absolute;
+      right: 22px;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.8rem;
+      transition: transform 0.3s ease;
+    }
+
+    .name-input:focus+.input-emoji {
+      transform: translateY(-50%) scale(1.2) rotate(10deg);
+    }
+
+    /* Unlock Button */
+    .unlock-btn {
+      width: 100%;
+      padding: 20px;
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(0.9rem, 2vw, 1.1rem);
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      background: linear-gradient(135deg, #00d4ff, #00ff88);
+      border: none;
+      border-radius: 60px;
+      color: #000000;
+      cursor: pointer;
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+      box-shadow: 0 15px 35px rgba(0, 212, 255, 0.3);
+    }
+
+    .unlock-btn:hover {
+      transform: translateY(-4px) scale(1.02);
+      box-shadow: 0 25px 50px rgba(0, 212, 255, 0.4);
+    }
+
+    .unlock-btn:active {
+      transform: translateY(0) scale(0.98);
+    }
+
+    .unlock-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg,
+          transparent,
+          rgba(255, 255, 255, 0.3),
+          transparent);
+      transition: left 0.5s ease;
+    }
+
+    .unlock-btn:hover::before {
+      left: 100%;
+    }
+
+    /* Error Message */
+    .error-msg {
+      color: #ff6b6b;
+      font-size: 0.95rem;
+      font-weight: 500;
+      margin-top: 20px;
+      display: none;
+      animation: errorShake 0.5s ease;
+    }
+
+    @keyframes errorShake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-15px);
+      }
+
+      40% {
+        transform: translateX(15px);
+      }
+
+      60% {
+        transform: translateX(-10px);
+      }
+
+      80% {
+        transform: translateX(10px);
+      }
+    }
+
+    /* Input Shake Animation */
+    .shake {
+      animation: inputShake 0.5s ease;
+      border-color: #ff6b6b !important;
+    }
+
+    @keyframes inputShake {
+
+      0%,
+      100% {
+        transform: translateX(0);
+      }
+
+      20% {
+        transform: translateX(-12px);
+      }
+
+      40% {
+        transform: translateX(12px);
+      }
+
+      60% {
+        transform: translateX(-8px);
+      }
+
+      80% {
+        transform: translateX(8px);
+      }
+    }
+
+    /* ============================================
+       SUCCESS OVERLAY
+       ============================================ */
+    .success-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: radial-gradient(circle, rgba(0, 255, 136, 0.2), rgba(0, 0, 0, 0.8));
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 2000;
+      backdrop-filter: blur(10px);
+    }
+
+    .success-content {
+      text-align: center;
+      animation: successZoom 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    @keyframes successZoom {
+      0% {
+        transform: scale(0);
+        opacity: 0;
+      }
+
+      50% {
+        transform: scale(1.2);
+      }
+
+      100% {
+        transform: scale(1);
+        opacity: 1;
+      }
+    }
+
+    .success-icon {
+      font-size: 5rem;
+      margin-bottom: 20px;
+      animation: successBounce 0.5s ease infinite alternate;
+    }
+
+    @keyframes successBounce {
+      from {
+        transform: translateY(0);
+      }
+
+      to {
+        transform: translateY(-15px);
+      }
+    }
+
+    .success-text {
+      font-family: 'Orbitron', sans-serif;
+      font-size: clamp(1.5rem, 6vw, 3rem);
+      font-weight: 900;
+      background: linear-gradient(135deg, #00ff88, #00d4ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      text-shadow: none;
+    }
+
+    .success-subtext {
+      font-size: 1.2rem;
+      color: rgba(255, 255, 255, 0.7);
+      margin-top: 15px;
+    }
+
+    /* ============================================
+       CORNER GIFs
+       ============================================ */
+    .corner-gif {
+      position: fixed;
+      width: clamp(70px, 10vw, 100px);
+      height: auto;
+      z-index: 5;
+      filter: drop-shadow(0 5px 20px rgba(0, 0, 0, 0.4));
+      transition: transform 0.3s ease;
+    }
+
+    .corner-gif:hover {
+      transform: scale(1.2);
+    }
+
+    .gif-bottom-left {
+      bottom: 20px;
+      left: 20px;
+      animation: gifFloat1 4s ease-in-out infinite;
+    }
+
+    .gif-bottom-right {
+      bottom: 20px;
+      right: 20px;
+      animation: gifFloat2 4s ease-in-out infinite;
+    }
+
+    @keyframes gifFloat1 {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(-5deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(5deg);
+      }
+    }
+
+    @keyframes gifFloat2 {
+
+      0%,
+      100% {
+        transform: translateY(0) rotate(5deg);
+      }
+
+      50% {
+        transform: translateY(-15px) rotate(-5deg);
+      }
+    }
+
+    /* ============================================
+       DECORATIVE ELEMENTS
+       ============================================ */
+    .corner-decoration {
+      position: fixed;
+      width: 150px;
+      height: 150px;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .corner-top-left {
+      top: 0;
+      left: 0;
+      border-top: 3px solid rgba(0, 212, 255, 0.3);
+      border-left: 3px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .corner-top-right {
+      top: 0;
+      right: 0;
+      border-top: 3px solid rgba(0, 212, 255, 0.3);
+      border-right: 3px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .corner-bottom-left {
+      bottom: 0;
+      left: 0;
+      border-bottom: 3px solid rgba(0, 212, 255, 0.3);
+      border-left: 3px solid rgba(0, 212, 255, 0.3);
+    }
+
+    .corner-bottom-right {
+      bottom: 0;
+      right: 0;
+      border-bottom: 3px solid rgba(0, 212, 255, 0.3);
+      border-right: 3px solid rgba(0, 212, 255, 0.3);
+    }
+
+    /* ============================================
+       FOOTER TEXT
+       ============================================ */
+    .footer-text {
+      position: fixed;
+      bottom: 25px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.7rem;
+      color: rgba(255, 255, 255, 0.25);
+      letter-spacing: 0.3em;
+      z-index: 5;
+    }
+
+    /* ============================================
+       RESPONSIVE DESIGN
+       ============================================ */
+    @media (max-width: 768px) {
+      .entry-form {
+        padding: 30px 25px;
+        border-radius: 25px;
+      }
+
+      .corner-decoration {
+        width: 80px;
+        height: 80px;
+      }
+
+      .corner-gif {
+        width: 60px;
+      }
+
+      .orb {
+        opacity: 0.2;
+      }
+
+      .orb-1 {
+        width: 200px;
+        height: 200px;
+      }
+
+      .orb-2 {
+        width: 150px;
+        height: 150px;
+      }
+
+      .orb-3 {
+        width: 120px;
+        height: 120px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .mission-title {
+        letter-spacing: 0.03em;
+      }
+
+      .subtitle {
+        letter-spacing: 0.2em;
+      }
+
+      .name-input {
+        padding: 16px 50px 16px 20px;
+      }
+
+      .unlock-btn {
+        padding: 16px;
+      }
+    }
+
+    /* ============================================
+       UTILITY CLASSES
+       ============================================ */
+    .hidden {
+      display: none !important;
+    }
+
+    .fade-in {
+      animation: fadeIn 0.5s ease forwards;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .scale-in {
+      animation: scaleIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+    }
+
+    @keyframes scaleIn {
+      from {
+        opacity: 0;
+        transform: scale(0.8);
+      }
+
+      to {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+
+  <!-- ============================================
+       BACKGROUND VIDEO & OVERLAYS
+       ============================================ -->
+  <video class="bg-video" autoplay muted loop playsinline>
+    <source src="Asset r/bg1.mp4" type="video/mp4">
+  </video>
+  <div class="bg-overlay"></div>
+  <div class="noise-overlay"></div>
+
+  <!-- ============================================
+       FLOATING ORBS (DECORATIVE)
+       ============================================ -->
+  <div class="orb orb-1"></div>
+  <div class="orb orb-2"></div>
+  <div class="orb orb-3"></div>
+
+  <!-- ============================================
+       PARTICLES CONTAINER
+       ============================================ -->
+  <div class="particles-container" id="particles"></div>
+
+  <!-- ============================================
+       CORNER DECORATIONS
+       ============================================ -->
+  <div class="corner-decoration corner-top-left"></div>
+  <div class="corner-decoration corner-top-right"></div>
+  <div class="corner-decoration corner-bottom-left"></div>
+  <div class="corner-decoration corner-bottom-right"></div>
+
+  <!-- ============================================
+       AUDIO ELEMENT
+       ============================================ -->
+  <audio id="bgMusic" preload="auto">
+    <source src="allbg.mp3" type="audio/mpeg">
+    <source src="allbg.mp3" type="audio/mpeg">
+  </audio>
+
+  <!-- ============================================
+       SUCCESS OVERLAY
+       ============================================ -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-content">
+      <div class="success-icon">✨🎉✨</div>
+      <h1 class="success-text">LET'S PARTY!</h1>
+      <p class="success-subtext">Welcome, Manshu! 🚀</p>
+    </div>
+  </div>
+
+  <!-- ============================================
+       MAIN CONTENT
+       ============================================ -->
+  <div class="main-container">
+    <img src="assets/0906-peacegoma.gif" class="cute-avatar" alt="Cute Bear">
+
+    <h1 class="mission-title">HAPPY BIRTHDAY MANSHU</h1>
+
+    <p class="subtitle">
+      <span class="emoji">🔐</span>
+      A SECRET SURPRISE
+      <span class="emoji">🔐</span>
+    </p>
+
+    <div class="entry-form">
+      <div class="lock-icon">🔒</div>
+
+      <h2 class="form-title">⚡ SECURITY CHECK ⚡</h2>
+
+
+
+      <div class="input-wrapper">
+        <input type="text" class="name-input" id="nameInput" placeholder="Apna Nickname Daal 🤫" autocomplete="off"
+          autofocus oninput="this.value = this.value.toUpperCase()" style="text-transform: uppercase;">
+        <span class="input-emoji">🐻</span>
+      </div>
+
+      <button class="unlock-btn" id="unlockBtn">
+        🚀 UNLOCK SURPRISE 🚀
+      </button>
+
+      <p class="error-msg" id="errorMsg">
+        ❌ ACCESS DENIED! Galat naam bhai! Try again 😏
+      </p>
+    </div>
+  </div>
+
+  <!-- ============================================
+       CORNER GIFs
+       ============================================ -->
+  <img src="assets/pandakuning.gif" class="corner-gif gif-bottom-left" alt="">
+  <img src="assets/gemoy.gif" class="corner-gif gif-bottom-right" alt="">
+
+  <!-- ============================================
+       FOOTER
+       ============================================ -->
+
+
+  <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+  <script>
+    // ============================================
+    // LOADING SCREEN HANDLER
+    // ============================================
+    document.addEventListener('DOMContentLoaded', function () {
+      const loadingScreen = document.getElementById('loading-screen');
+
+      setTimeout(function () {
+        loadingScreen.classList.add('hidden');
+      }, 2500);
+    });
+
+    // ============================================
+    // CREATE FLOATING PARTICLES
+    // ============================================
+    function createParticles() {
+      const container = document.getElementById('particles');
+      const particleCount = 40;
+      const types = ['particle-glow', 'particle-star', 'particle-magic'];
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.className = `particle ${types[Math.floor(Math.random() * types.length)]}`;
+
+        const size = Math.random() * 12 + 4;
+        particle.style.width = size + 'px';
+        particle.style.height = size + 'px';
+        particle.style.left = Math.random() * 100 + '%';
+        particle.style.animationDuration = (Math.random() * 15 + 10) + 's';
+        particle.style.animationDelay = Math.random() * 20 + 's';
+
+        container.appendChild(particle);
+      }
+    }
+
+    createParticles();
+
+    // ============================================
+    // DOM ELEMENTS
+    // ============================================
+    const nameInput = document.getElementById('nameInput');
+    const unlockBtn = document.getElementById('unlockBtn');
+    const errorMsg = document.getElementById('errorMsg');
+    const successOverlay = document.getElementById('successOverlay');
+    const bgMusic = document.getElementById('bgMusic');
+
+    // ============================================
+    // VALIDATION FUNCTION
+    // ============================================
+    function validateName() {
+      const enteredName = nameInput.value.trim().toLowerCase();
+      const validNames = ['manshu', 'himanshu', 'manu', 'himanshu sharma'];
+
+      if (validNames.includes(enteredName)) {
+        // SUCCESS - Play music and show animation
+        successOverlay.style.display = 'flex';
+
+        // ACTIVATE MUSIC SESSION
+        sessionStorage.setItem("musicActive", "true");
+
+        // Try to play music
+        bgMusic.volume = 0.7;
+        bgMusic.play().catch(function (error) {
+          console.log('Autoplay prevented:', error);
+        });
+
+        // Redirect after animation
+        setTimeout(function () {
+          window.location.href = 'page2.html';
+        }, 1800);
+
+      } else {
+        // ERROR - Show error message, shake, RED BURST, and FADE TEXT
+        nameInput.classList.add('shake');
+        errorMsg.style.display = 'block';
+        createErrorBurst(nameInput); // Trigger amazing effect
+
+        nameInput.style.borderColor = '#ff0000';
+        nameInput.style.boxShadow = '0 0 20px rgba(255, 0, 0, 0.6)';
+
+        // Slow vanishing effect (Fade out text)
+        nameInput.style.transition = 'color 1s ease, border-color 0.5s ease, box-shadow 0.5s ease';
+        nameInput.style.color = 'transparent';
+
+        // Clear input after fade out
+        setTimeout(() => {
+          nameInput.value = '';
+          // Reset styles
+          nameInput.style.transition = 'none';
+          nameInput.style.color = '#ffffff';
+          nameInput.style.borderColor = 'rgba(255, 255, 255, 0.3)';
+          nameInput.style.boxShadow = 'none';
+          nameInput.classList.remove('shake');
+
+          // Restore normal transition
+          setTimeout(() => {
+            nameInput.style.transition = 'all 0.3s ease';
+          }, 50);
+        }, 1000);
+
+        setTimeout(function () {
+          errorMsg.style.display = 'none';
+        }, 4000);
+      }
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    unlockBtn.addEventListener('click', validateName);
+
+    nameInput.addEventListener('keypress', function (event) {
+      if (event.key === 'Enter') {
+        validateName();
+      }
+    });
+
+    nameInput.addEventListener('input', function () {
+      errorMsg.style.display = 'none';
+      nameInput.classList.remove('shake');
+    });
+
+    // ============================================
+    // EASTER EGG - Konami Code
+    // ============================================
+    let konamiCode = [];
+    const konamiSequence = [
+      'ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown',
+      'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight',
+      'KeyB', 'KeyA'
+    ];
+
+    document.addEventListener('keydown', function (event) {
+      konamiCode.push(event.code);
+      konamiCode = konamiCode.slice(-10);
+
+      if (konamiCode.join(',') === konamiSequence.join(',')) {
+        // Easter egg activated!
+        document.body.style.animation = 'partyMode 0.5s infinite';
+        setTimeout(function () {
+          document.body.style.animation = '';
+        }, 5000);
+      }
+    });
+
+    // ============================================
+    // RED BURST EFFECT (Wrong Pass)
+    // ============================================
+    function createErrorBurst(element) {
+      const rect = element.getBoundingClientRect();
+      const centerX = rect.left + rect.width / 2;
+      const centerY = rect.top + rect.height / 2;
+      const particleCount = 40;
+
+      for (let i = 0; i < particleCount; i++) {
+        const particle = document.createElement('div');
+        particle.style.cssText = `
+          position: fixed;
+          width: ${Math.random() * 8 + 4}px;
+          height: ${Math.random() * 8 + 4}px;
+          background: ${Math.random() > 0.5 ? '#ff0000' : '#ff4444'};
+          left: ${centerX}px;
+          top: ${centerY}px;
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 10000;
+          box-shadow: 0 0 10px rgba(255, 0, 0, 0.8);
+          transform: translate(-50%, -50%);
+          animation: burstExplosion 0.8s ease-out forwards;
+        `;
+
+        // Random angle and velocity
+        const angle = Math.random() * 360;
+        const velocity = Math.random() * 150 + 50;
+        const radians = angle * (Math.PI / 180);
+        const tx = Math.cos(radians) * velocity;
+        const ty = Math.sin(radians) * velocity;
+
+        particle.style.setProperty('--tx', `${tx}px`);
+        particle.style.setProperty('--ty', `${ty}px`);
+
+        document.body.appendChild(particle);
+        setTimeout(() => particle.remove(), 800);
+      }
+    }
+
+    // Add burst animation
+    const burstStyle = document.createElement('style');
+    burstStyle.textContent = `
+      @keyframes burstExplosion {
+        0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+        100% { transform: translate(calc(-50% + var(--tx)), calc(-50% + var(--ty))) scale(0); opacity: 0; }
+      }
+    `;
+    document.head.appendChild(burstStyle);
+
+    // ============================================
+    // MOUSE TRAIL EFFECT
+    // ============================================
+    document.addEventListener('mousemove', function (event) {
+      if (Math.random() > 0.92) {
+        const trail = document.createElement('div');
+        trail.style.cssText = `
+          position: fixed;
+          width: 8px;
+          height: 8px;
+          background: radial-gradient(circle, rgba(0, 212, 255, 0.8), transparent);
+          border-radius: 50%;
+          pointer-events: none;
+          z-index: 9999;
+          left: ${event.clientX}px;
+          top: ${event.clientY}px;
+          animation: trailFade 1s forwards;
+        `;
+        document.body.appendChild(trail);
+
+        setTimeout(function () {
+          trail.remove();
+        }, 1000);
+      }
+    });
+
+    // Add trail animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes trailFade {
+        0% { opacity: 1; transform: scale(1); }
+        100% { opacity: 0; transform: scale(0); }
+      }
+      @keyframes partyMode {
+        0% { filter: hue-rotate(0deg); }
+        100% { filter: hue-rotate(360deg); }
+      }
+    `;
+    document.head.appendChild(style);
+
+    // ============================================
+    // CONSOLE MESSAGE
+    // ============================================
+    console.log('%c🎂 HAPPY BIRTHDAY MANSHU 🎂', 'font-size: 30px; font-weight: bold; color: #00d4ff; text-shadow: 2px 2px 0 #00ff88;');
+    console.log('%cA Special Birthday Experience', 'font-size: 14px; color: #888;');
+    console.log('%c💙 Made with love for Manshu! 💙', 'font-size: 12px; color: #ff00ff;');
+  </script>
+  <script src="music.js"></script>
+</body>
+
+</html>```

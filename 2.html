@@ -1,0 +1,391 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Memories | Note & Birthday</title>
+
+    <!-- GSAP via CDN -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=Montserrat:wght@300;400;600&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+</head>
+
+<body>
+
+    <!-- Background Video -->
+    <div id="bg-video-container">
+        <!-- Default video is generic cinematic nature -->
+        <video id="bg-video" autoplay loop muted>
+            <source src="Asset/Live.mp4" type="video/mp4">
+        </video>
+        <div class="overlay"></div>
+    </div>
+
+    <!-- Audio Element (Hidden) -->
+    <audio id="bg-audio"></audio>
+
+    <!-- Home View -->
+    <section id="home-section">
+        <div class="cards-container">
+            <div class="card" onclick="openProject('note')">
+                <div class="card-bg-glow"></div>
+                <h2>Note</h2>
+            </div>
+            <div class="card" onclick="openProject('birthday')">
+                <div class="card-bg-glow"></div>
+                <h2>Birthday</h2>
+            </div>
+        </div>
+    </section>
+
+    <!-- Project View -->
+    <section id="project-section">
+        <!-- Navigation -->
+        <div class="nav-header">
+            <button class="btn" onclick="closeProject()">← Back</button>
+            <div class="controls">
+                <button class="btn" id="restart-lyrics-btn" style="display:none;" onclick="restartLyrics()">Replay
+                    Lyrics</button>
+                <button class="btn" onclick="toggleAudio()" id="audio-btn">Pause Music</button>
+            </div>
+        </div>
+
+        <!-- Hero Content -->
+        <div class="project-hero">
+            <!-- Lyrics Container (Note) -->
+            <div id="lyrics-container"></div>
+
+            <!-- Birthday Message (Birthday) -->
+            <div id="birthday-msg">
+                Happy Birthday! <br>
+                <span class="letter" style="font-size: 1.5rem; font-family: 'Montserrat';">Wishing you the most magical year
+                    ahead.</span>
+            </div>
+            <model-viewer id="cake-model" src="Asset/strawberry_cake.glb" auto-rotate camera-controls disable-zoom exposure="1.1"
+                shadow-intensity="1" style="width:380px; height:380px; margin-top:30px;">
+            </model-viewer>
+
+            <div class="scroll-indicator">Scroll Down</div>
+        </div>
+
+        <!-- Gallery -->
+        <div class="gallery-section">
+            <h3 class="gallery-title">Memories</h3>
+            <div class="gallery-grid" id="gallery-grid">
+                <!-- Images injected via JS -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Image Modal -->
+    <div id="image-modal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modal-image">
+    </div>
+
+    <script>
+        const assets = {
+            note: {
+                video: "asset/video1.mp4",
+                audio: "asset/Music.mp3",
+                gallery: [
+                    "Asset/img1.jpg",
+                    "Asset/img2.jpg",
+                    "Asset/img3.jpg",
+                    "Asset/img4.jpg",
+                    "Asset/img5.jpg",
+                    "Asset/img6.jpg"
+                ]
+            },
+            birthday: {
+                video: "asset/bg.mp4",
+                audio: "asset/audio.mp4",
+                gallery: [
+                    "Asset/img1.jpg",
+                    "Asset/img2.jpg",
+                    "Asset/img3.jpg",
+                    "Asset/img4.jpg",
+                    "Asset/img5.jpg",
+                    "Asset/img6.jpg"
+                ]
+            }
+        };
+
+        const lyrics = [
+            "Sambhaal ke rakha wo phool mera tu",
+            "Meri shayari mein zaroor raha tu",
+            "Jo aankhon mein pyaari si duniya basaayi",
+            "Wo duniya bhi tha tu, wo lamha bhi tha tu",
+            "Haan, lagte hain mujhko ye kisse sataane",
+            "Deta na dil mera tujhko bhulaane",
+            "Adhoore se vaade, adhoori si raatein",
+            "Ab hisse mein daakhil mere bas wo yaadein"
+        ];
+
+        // --- DOM ELEMENTS ---
+        const homeSection = document.getElementById('home-section');
+        const projectSection = document.getElementById('project-section');
+        const bgVideo = document.getElementById('bg-video');
+        const bgAudio = document.getElementById('bg-audio');
+        const audioBtn = document.getElementById('audio-btn');
+        const lyricsContainer = document.getElementById('lyrics-container');
+        const birthdayMsg = document.getElementById('birthday-msg');
+        const galleryGrid = document.getElementById('gallery-grid');
+        const restartBtn = document.getElementById('restart-lyrics-btn');
+
+        let currentMode = null;
+        let isAudioPlaying = false;
+        let typingTimeline = null;
+
+        // --- INITIALIZATION ---
+        // Set a default background video for Home
+        bgVideo.src = "Asset/Live.mp4"; // Abstract soothing
+
+        // GSAP Intro Animation
+        window.addEventListener('load', () => {
+            gsap.from(".card", {
+                duration: 1.5,
+                y: 100,
+                opacity: 0,
+                stagger: 0.3,
+                ease: "power3.out"
+            });
+        });
+
+        // --- CORE FUNCTIONS ---
+
+        function openProject(type) {
+            currentMode = type;
+            const data = assets[type];
+
+            // 1. Transition Home Out
+            gsap.to(".card", {
+                duration: 0.5,
+                scale: 0.8,
+                opacity: 0,
+                stagger: 0.1,
+                ease: "power2.in",
+                onComplete: () => {
+                    homeSection.style.display = 'none';
+                    projectSection.style.display = 'flex';
+                    setupProject(type, data);
+                }
+            });
+        }
+
+        function setupProject(type, data) {
+            // Swap Media
+            bgVideo.style.opacity = 0;
+            setTimeout(() => {
+                bgVideo.src = data.video;
+                bgVideo.play();
+                gsap.to(bgVideo, { duration: 1, opacity: 1 });
+            }, 500);
+
+            bgAudio.src = data.audio;
+            bgAudio.play().then(() => {
+                isAudioPlaying = true;
+                audioBtn.innerText = "Pause Music";
+            }).catch(e => {
+                console.log("Autoplay blocked, waiting for interaction");
+                isAudioPlaying = false;
+                audioBtn.innerText = "Play Music";
+            });
+
+            // Build Gallery
+            galleryGrid.innerHTML = '';
+            data.gallery.forEach((imgSrc, index) => {
+                const div = document.createElement('div');
+                div.className = 'gallery-item';
+                div.innerHTML = `<img src="${imgSrc}" loading="lazy"><div class="gallery-overlay"></div>`;
+                div.addEventListener('click', () => openModal(imgSrc));
+                galleryGrid.appendChild(div);
+            });
+
+            // Setup Specific Content
+            if (type === 'note') {
+                birthdayMsg.style.display = 'none';
+                document.getElementById('cake-model').style.display = 'none';
+                lyricsContainer.style.display = 'block';
+                restartBtn.style.display = 'block';
+
+                // Clear previous lyrics
+                lyricsContainer.innerHTML = '';
+
+                // Animate Project In
+                gsap.fromTo(projectSection, { opacity: 0 }, { duration: 1, opacity: 1 });
+
+                // Start Lyrics Typing
+                setTimeout(startLyricsTyping, 1000);
+
+            } else if (type === 'birthday') {
+                lyricsContainer.style.display = 'none';
+                restartBtn.style.display = 'none';
+                birthdayMsg.style.display = 'block';
+                document.getElementById('cake-model').style.display = 'block';
+
+                // Create sparkles
+                createSparkles();
+
+                // Animate Project In
+                gsap.fromTo(projectSection, { opacity: 0 }, { duration: 1, opacity: 1 });
+
+                gsap.from("#birthday-msg", {
+                    duration: 1.5,
+                    scale: 0.5,
+                    opacity: 0,
+                    rotation: -5,
+                    ease: "elastic.out(1, 0.3)",
+                    delay: 0.5
+                });
+            }
+
+            // Animate Gallery In
+            gsap.from(".gallery-item", {
+                duration: 1,
+                y: 50,
+                opacity: 0,
+                stagger: 0.2,
+                scrollTrigger: {
+                    trigger: ".gallery-section",
+                    start: "top 80%"
+                }
+            });
+        }
+
+        function closeProject() {
+            // Stop Audio
+            bgAudio.pause();
+            bgAudio.currentTime = 0;
+            isAudioPlaying = false;
+
+            // Kill Animations
+            if (typingTimeline) typingTimeline.kill();
+
+            // Hide Cake
+            document.getElementById('cake-model').style.display = 'none';
+
+            // Transition Project Out
+            gsap.to(projectSection, {
+                duration: 0.5,
+                opacity: 0,
+                onComplete: () => {
+                    projectSection.style.display = 'none';
+                    homeSection.style.display = 'flex';
+
+                    // Reset Video to Default
+                    bgVideo.src = "/mylivewallpapers-com-Couple-with-Sparklers-4K.mp4";
+
+                    // Animate Home In
+                    gsap.to(".card", {
+                        duration: 1,
+                        scale: 1,
+                        opacity: 1,
+                        y: 0,
+                        stagger: 0.2,
+                        ease: "power3.out"
+                    });
+                }
+            });
+        }
+
+        // --- LYRICS ANIMATION ---
+        function startLyricsTyping() {
+            lyricsContainer.innerHTML = '';
+            typingTimeline = gsap.timeline();
+
+            lyrics.forEach((line, index) => {
+                const lineSpan = document.createElement('span');
+                lineSpan.innerText = line;
+                lineSpan.className = 'lyric-line';
+                lyricsContainer.appendChild(lineSpan);
+
+                // Typewriter/Fade effect
+                typingTimeline.to(lineSpan, {
+                    duration: 2, // Time to read line
+                    opacity: 1,
+                    y: 0,
+                    ease: "power2.out",
+                    // Use text plugin simulation or just fade in
+                });
+
+                // Add a small pause between lines
+                typingTimeline.to({}, { duration: 0.5 });
+            });
+        }
+
+        function restartLyrics() {
+            if (typingTimeline) typingTimeline.kill();
+            bgAudio.currentTime = 0;
+            bgAudio.play();
+            isAudioPlaying = true;
+            audioBtn.innerText = "Pause Music";
+            startLyricsTyping();
+        }
+
+        // --- AUDIO CONTROLS ---
+        function toggleAudio() {
+            if (isAudioPlaying) {
+                bgAudio.pause();
+                audioBtn.innerText = "Play Music";
+            } else {
+                bgAudio.play();
+                audioBtn.innerText = "Pause Music";
+            }
+            isAudioPlaying = !isAudioPlaying;
+        }
+
+        // --- BIRTHDAY SPARKLES ---
+        function createSparkles() {
+            const container = document.querySelector('.project-hero');
+            // Clean up old sparkles if any (simple check)
+            const oldSparkles = document.querySelectorAll('.sparkle');
+            oldSparkles.forEach(s => s.remove());
+
+            for (let i = 0; i < 30; i++) {
+                const sparkle = document.createElement('div');
+                sparkle.classList.add('sparkle');
+                sparkle.style.width = Math.random() * 5 + 2 + 'px';
+                sparkle.style.height = sparkle.style.width;
+                sparkle.style.top = Math.random() * 100 + '%';
+                sparkle.style.left = Math.random() * 100 + '%';
+                sparkle.style.animationDelay = Math.random() * 2 + 's';
+                container.appendChild(sparkle);
+            }
+        }
+
+        // --- IMAGE MODAL ---
+        function openModal(imgSrc) {
+            const modal = document.getElementById('image-modal');
+            const modalImg = document.getElementById('modal-image');
+            modal.style.display = 'flex';
+            modalImg.src = imgSrc;
+        }
+
+        function closeModal() {
+            const modal = document.getElementById('image-modal');
+            modal.style.display = 'none';
+        }
+
+        // Event listeners for modal
+        document.querySelector('.close').addEventListener('click', closeModal);
+        document.getElementById('image-modal').addEventListener('click', (e) => {
+            if (e.target === document.getElementById('image-modal')) {
+                closeModal();
+            }
+        });
+
+    </script>
+<script src="music.js"></script></body>
+
+</html>

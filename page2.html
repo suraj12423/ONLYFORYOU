@@ -1,0 +1,1428 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Happy Birthday Manshu - A Special Celebration">
+    <meta name="theme-color" content="#00d4ff">
+    <title>🎂 Happy Birthday Manshu!</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Poppins:wght@100;200;300;400;500;600;700;800;900&family=Dancing+Script:wght@400;500;600;700&family=Pacifico&display=swap"
+        rel="stylesheet">
+
+    <style>
+        /* ============================================
+       RESET & BASE STYLES
+       ============================================ */
+        *,
+        *::before,
+        *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px;
+        }
+
+        body {
+            font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: #000000;
+            color: #ffffff;
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.7;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* SMART ZOOM: Cinematic view only for Desktop */
+        @media (min-width: 1024px) {
+            body {
+                zoom: 90%;
+            }
+        }
+
+        /* ... existing css ... */
+
+        /* ============================================
+       CUSTOM SCROLLBAR
+       ============================================ */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(180deg, #00d4ff, #ff00ff, #00ff88);
+            border-radius: 10px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(180deg, #00ff88, #00d4ff, #ff00ff);
+        }
+
+        /* ============================================
+       BACKGROUND VIDEO & OVERLAYS
+       ============================================ */
+        .bg-video {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -2;
+        }
+
+        .bg-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(180deg,
+                    rgba(0, 0, 0, 0.3) 0%,
+                    rgba(0, 0, 0, 0.1) 50%,
+                    rgba(0, 0, 0, 0.4) 100%);
+            z-index: -1;
+        }
+
+        /* ============================================
+       CONFETTI ANIMATION
+       ============================================ */
+        .confetti-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .confetti {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            top: -20px;
+            animation: confettiFall linear infinite;
+        }
+
+        .confetti-circle {
+            border-radius: 50%;
+        }
+
+        .confetti-square {
+            border-radius: 2px;
+        }
+
+        .confetti-star {
+            clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+        }
+
+        @keyframes confettiFall {
+            0% {
+                transform: translateY(0) rotate(0deg) scale(1);
+                opacity: 1;
+            }
+
+            100% {
+                transform: translateY(100vh) rotate(720deg) scale(0.5);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+       FLOATING HEARTS
+       ============================================ */
+        /* ===== VISIBILITY OVERRIDES ===== */
+        .message-box,
+        .hero-subtitle,
+        .bro-card,
+        .scroll-indicator {
+            background: rgba(255, 255, 255, 0.25) !important;
+            backdrop-filter: blur(20px) !important;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.5) !important;
+            border: 1px solid rgba(255, 255, 255, 0.4) !important;
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15) !important;
+            z-index: 50;
+            padding: 20px !important;
+            border-radius: 20px !important;
+            color: #fff !important;
+        }
+
+        .bro-card:hover {
+            background: rgba(255, 255, 255, 0.35) !important;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 32px rgba(31, 38, 135, 0.25) !important;
+        }
+
+        .birthday-title,
+        .message-title,
+        .section-title {
+            color: #ffffff !important;
+            /* Clear readable shadow, no black outline */
+            text-shadow: 2px 2px 4px #0a0a2e, 0 0 10px rgba(0, 212, 255, 0.3) !important;
+            filter: none !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            font-weight: 800 !important;
+            letter-spacing: 0.5px;
+        }
+
+        /* Specific fix for subtitle */
+        .hero-subtitle {
+            color: #ffffff !important;
+            text-shadow: 1px 1px 3px #0a0a2e !important;
+            background: none !important;
+            border: none !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            font-weight: 600 !important;
+        }
+
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+            overflow: hidden;
+        }
+
+        .floating-heart {
+            position: absolute;
+            font-size: 1.5rem;
+            animation: heartFloat linear infinite;
+            opacity: 0;
+        }
+
+        @keyframes heartFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) rotate(0deg);
+                opacity: 0;
+            }
+
+            10% {
+                opacity: 0.8;
+            }
+
+            90% {
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: translateY(-100px) translateX(50px) rotate(360deg);
+                opacity: 0;
+            }
+        }
+
+        /* ============================================
+       NAVIGATION BUTTONS
+       ============================================ */
+        .nav-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 20px 30px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+            background: linear-gradient(180deg, rgba(0, 0, 0, 0.5), transparent);
+        }
+
+        .nav-btn {
+            padding: 14px 30px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50px;
+            color: #ffffff;
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 0.05em;
+            cursor: pointer;
+            text-decoration: none;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .nav-btn:hover {
+            background: rgba(0, 212, 255, 0.15);
+            border-color: rgba(0, 212, 255, 0.3);
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.2);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        .nav-center {
+            display: flex;
+            gap: 15px;
+        }
+
+        .music-btn {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.1), rgba(255, 0, 255, 0.1));
+            border-color: rgba(0, 212, 255, 0.3);
+        }
+
+        .music-btn:hover {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
+        }
+
+        /* ============================================
+       MAIN SECTIONS CONTAINER
+       ============================================ */
+        .sections-container {
+            position: relative;
+            z-index: 10;
+        }
+
+        section {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 120px 20px 80px;
+            position: relative;
+        }
+
+        /* ============================================
+       SECTION 1: HERO / BIRTHDAY GREETING
+       ============================================ */
+        .hero-section {
+            background: transparent;
+        }
+
+        .hero-avatar {
+            width: clamp(120px, 18vw, 180px);
+            height: clamp(120px, 18vw, 180px);
+            border-radius: 50%;
+            object-fit: cover;
+            border: 5px solid transparent;
+            background: linear-gradient(#000, #000) padding-box,
+                linear-gradient(135deg, #00d4ff, #ff00ff, #00ff88) border-box;
+            box-shadow:
+                0 0 50px rgba(0, 212, 255, 0.4),
+                0 0 100px rgba(255, 0, 255, 0.2);
+            margin-bottom: 40px;
+            animation: avatarGlow 3s ease-in-out infinite, avatarFloat 4s ease-in-out infinite;
+        }
+
+        @keyframes avatarGlow {
+
+            0%,
+            100% {
+                box-shadow: 0 0 50px rgba(0, 212, 255, 0.4), 0 0 100px rgba(255, 0, 255, 0.2);
+            }
+
+            50% {
+                box-shadow: 0 0 80px rgba(0, 212, 255, 0.6), 0 0 150px rgba(255, 0, 255, 0.4);
+            }
+        }
+
+        @keyframes avatarFloat {
+
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        .birthday-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1.5rem, 5vw, 2.8rem);
+            font-weight: 900;
+            letter-spacing: 0.05em;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg,
+                    #00d4ff 0%,
+                    #ff00ff 25%,
+                    #ffff00 50%,
+                    #00ff88 75%,
+                    #00d4ff 100%);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 4s ease infinite;
+            text-shadow: none;
+        }
+
+        @keyframes rainbowShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .hero-subtitle {
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 300;
+            color: rgba(255, 255, 255, 0.8);
+            margin-bottom: 30px;
+            max-width: 550px;
+        }
+
+        .hero-emoji-row {
+            font-size: clamp(1.5rem, 3vw, 2rem);
+            letter-spacing: 0.15em;
+            margin-bottom: 25px;
+            animation: emojiPulse 2s ease-in-out infinite;
+        }
+
+        @keyframes emojiPulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.1);
+            }
+        }
+
+        /* ============================================
+       MESSAGE BOX (GLASSMORPHISM)
+       ============================================ */
+        .message-container {
+            max-width: 600px;
+            width: 95%;
+        }
+
+        .message-box {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 30px;
+            padding: clamp(30px, 5vw, 50px);
+            margin-bottom: 30px;
+            box-shadow:
+                0 30px 60px rgba(0, 0, 0, 0.3),
+                inset 0 0 30px rgba(255, 255, 255, 0.02);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .message-box:hover {
+            transform: translateY(-5px);
+            box-shadow:
+                0 40px 80px rgba(0, 0, 0, 0.4),
+                0 0 50px rgba(0, 212, 255, 0.1),
+                inset 0 0 30px rgba(255, 255, 255, 0.02);
+        }
+
+        .message-title {
+            font-family: 'Orbitron', sans-serif;
+            font-size: clamp(1rem, 2vw, 1.3rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #00d4ff, #00ff88);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 15px;
+        }
+
+        .message-text {
+            font-size: clamp(0.9rem, 2vw, 1.05rem);
+            font-weight: 300;
+            line-height: 1.8;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        .message-text strong {
+            color: #00ff88;
+            font-weight: 600;
+        }
+
+        .message-text .highlight {
+            background: linear-gradient(135deg, rgba(0, 212, 255, 0.2), rgba(255, 0, 255, 0.2));
+            padding: 2px 10px;
+            border-radius: 5px;
+        }
+
+        /* ============================================
+       CUTE GIFS ROW
+       ============================================ */
+        .gif-row {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: clamp(15px, 4vw, 35px);
+            margin: 40px 0;
+        }
+
+        .cute-gif {
+            width: clamp(80px, 12vw, 120px);
+            height: auto;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            filter: drop-shadow(0 10px 20px rgba(0, 0, 0, 0.3));
+        }
+
+        .cute-gif:hover {
+            transform: scale(1.2) rotate(10deg);
+            filter: drop-shadow(0 15px 30px rgba(0, 212, 255, 0.4));
+        }
+
+        .cute-gif:nth-child(2):hover {
+            transform: scale(1.2) rotate(-10deg);
+        }
+
+        /* ============================================
+       SCROLL INDICATOR
+       ============================================ */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        .scroll-indicator span {
+            font-family: 'Orbitron', sans-serif;
+            font-size: 0.75rem;
+            color: rgba(255, 255, 255, 0.5);
+            letter-spacing: 0.2em;
+        }
+
+        .scroll-arrow {
+            width: 30px;
+            height: 30px;
+            border-right: 2px solid rgba(0, 212, 255, 0.5);
+            border-bottom: 2px solid rgba(0, 212, 255, 0.5);
+            transform: rotate(45deg);
+        }
+
+        @keyframes scrollBounce {
+
+            0%,
+            100% {
+                transform: translateX(-50%) translateY(0);
+            }
+
+            50% {
+                transform: translateX(-50%) translateY(15px);
+            }
+        }
+
+        /* ============================================
+       SECTION 2: BRO MESSAGE
+       ============================================ */
+        .bro-section {
+            background: linear-gradient(180deg, transparent, rgba(0, 20, 40, 0.3), transparent);
+        }
+
+        .bro-title {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.5rem, 4vw, 2.5rem);
+            color: #00d4ff;
+            margin-bottom: 30px;
+            text-shadow: 0 0 20px rgba(0, 212, 255, 0.5);
+        }
+
+        .bro-cards {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            max-width: 650px;
+            width: 95%;
+        }
+
+        .bro-card {
+            background: rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-left: 4px solid;
+            border-image: linear-gradient(180deg, #00d4ff, #ff00ff) 1;
+            border-radius: 0 20px 20px 0;
+            padding: 25px 30px;
+            text-align: left;
+            transition: all 0.4s ease;
+        }
+
+        .bro-card:hover {
+            transform: translateX(15px);
+            background: rgba(255, 255, 255, 0.05);
+            box-shadow: 0 20px 40px rgba(0, 212, 255, 0.15);
+        }
+
+        .bro-card-icon {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .bro-card-text {
+            font-size: 0.95rem;
+            font-weight: 300;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.9);
+        }
+
+        /* ============================================
+       SECTION 3: SIGNATURE
+       ============================================ */
+        .signature-section {
+            padding-top: 60px;
+            padding-bottom: 100px;
+        }
+
+        .signature-gif {
+            width: clamp(80px, 12vw, 110px);
+            margin-bottom: 25px;
+            animation: signatureFloat 3s ease-in-out infinite;
+        }
+
+        @keyframes signatureFloat {
+
+            0%,
+            100% {
+                transform: translateY(0) scale(1);
+            }
+
+            50% {
+                transform: translateY(-20px) scale(1.1);
+            }
+        }
+
+        .signature-text {
+            font-family: 'Dancing Script', cursive;
+            font-size: clamp(1.8rem, 5vw, 3rem);
+            background: linear-gradient(135deg, #00d4ff, #00ff88, #ff00ff);
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: rainbowShift 4s ease infinite;
+            margin-bottom: 15px;
+        }
+
+        .signature-from {
+            font-size: 1rem;
+            color: rgba(255, 255, 255, 0.5);
+            font-weight: 300;
+            margin-bottom: 30px;
+        }
+
+        .final-emojis {
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            animation: celebratePulse 1.5s ease-in-out infinite;
+        }
+
+        @keyframes celebratePulse {
+
+            0%,
+            100% {
+                transform: scale(1);
+            }
+
+            25% {
+                transform: scale(1.1) rotate(-5deg);
+            }
+
+            50% {
+                transform: scale(1.15);
+            }
+
+            75% {
+                transform: scale(1.1) rotate(5deg);
+            }
+        }
+
+        /* ============================================
+       RESPONSIVE DESIGN
+       ============================================ */
+        @media (max-width: 768px) {
+            .nav-container {
+                padding: 15px 20px;
+            }
+
+            .nav-btn {
+                padding: 10px 18px;
+                font-size: 0.75rem;
+            }
+
+            .nav-center {
+                gap: 8px;
+            }
+
+            section {
+                padding: 100px 15px 60px;
+            }
+
+            .message-box {
+                padding: 25px;
+            }
+
+            .gif-row {
+                gap: 15px;
+            }
+
+            .bro-card {
+                padding: 20px 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .nav-container {
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 10px;
+            }
+
+            .hero-avatar {
+                width: 100px;
+                height: 100px;
+            }
+
+            .cute-gif {
+                width: 70px;
+            }
+        }
+
+        /* ============================================
+       UTILITY CLASSES
+       ============================================ */
+        .fade-in-up {
+            opacity: 0;
+            transform: translateY(40px);
+            animation: fadeInUp 0.8s ease forwards;
+        }
+
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .delay-1 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-2 {
+            animation-delay: 0.4s;
+        }
+
+        .delay-3 {
+            animation-delay: 0.6s;
+        }
+
+        .delay-4 {
+            animation-delay: 0.8s;
+        }
+
+        .delay-5 {
+            animation-delay: 1s;
+        }
+
+        /* OVERRIDE GRID GAP */
+        .cards-grid {
+            display: grid !important;
+            grid-template-columns: repeat(2, 1fr) !important;
+            gap: 50px !important;
+            max-width: 1200px !important;
+            width: 95% !important;
+            margin: 0 auto;
+        }
+
+        /* Ensure 1 column on mobile only */
+        @media (max-width: 768px) {
+            .cards-grid {
+                grid-template-columns: 1fr !important;
+            }
+        }
+
+        /* ===== FIX COLORS (MISSION MANSHU STYLE) ===== */
+        .card-text {
+            color: #ffffff !important;
+            text-shadow: none !important;
+            /* Clean white text */
+            font-size: 1rem;
+            line-height: 1.6;
+            font-weight: 500;
+        }
+
+        /* Gradient for bold text */
+        .card-text strong {
+            background: linear-gradient(135deg, #00d4ff, #00ff88, #ffff00);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 800;
+            text-shadow: none;
+            filter: drop-shadow(0 0 5px rgba(0, 212, 255, 0.5));
+        }
+
+        /* Cyan Glass Background instead of Black */
+        .bro-card {
+            background: rgba(0, 212, 255, 0.1) !important;
+            backdrop-filter: blur(15px) !important;
+            border: 1px solid rgba(0, 212, 255, 0.4) !important;
+            box-shadow: 0 0 30px rgba(0, 212, 255, 0.15) !important;
+        }
+
+        /* ===== GRADIENT TITLES (MISSION MANSHU STYLE) ===== */
+        .birthday-title,
+        .message-title,
+        .section-title,
+        .hero-subtitle {
+            background: linear-gradient(135deg, #00d4ff 0%, #00ff88 50%, #ff00ff 100%) !important;
+            -webkit-background-clip: text !important;
+            -webkit-text-fill-color: transparent !important;
+            background-clip: text !important;
+            color: transparent !important;
+            text-shadow: none !important;
+            /* Remove black shadow */
+            filter: drop-shadow(0 0 15px rgba(0, 212, 255, 0.4)) !important;
+            /* Soft colorful glow */
+            font-weight: 900 !important;
+        }
+
+        /* Subtitle specific - make it white with glow or keeping gradient? User listed titles. 
+           But subtitle "Wishing you..." might be better white. 
+           Let's keep subtitle WHITE but with colorful GLOW. */
+        .hero-subtitle {
+            background: none !important;
+            -webkit-text-fill-color: #ffffff !important;
+            color: #ffffff !important;
+            text-shadow: 0 0 10px rgba(0, 212, 255, 0.5) !important;
+            filter: none !important;
+        }
+
+        /* Fix for Emojis inside Gradient Text */
+        .emoji-fix {
+            color: #ffffff !important;
+            -webkit-text-fill-color: #ffffff !important;
+            background: none !important;
+            -webkit-background-clip: initial !important;
+            background-clip: initial !important;
+            text-shadow: none !important;
+            filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.4)) !important;
+            font-family: "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
+            font-style: normal !important;
+        }
+    </style>
+</head>
+
+<body>
+    <!-- AUDIO ELEMENT -->
+    <audio id="bgMusic" loop>
+        <source src="allbg.mp3" type="audio/mpeg">
+    </audio>
+
+    <!-- ============================================
+       BACKGROUND VIDEO & OVERLAY
+       ============================================ -->
+    <video class="bg-video" autoplay muted loop playsinline>
+        <source src="Asset r/video1.mp4" type="video/mp4">
+    </video>
+    <div class="bg-overlay"></div>
+
+    <!-- ============================================
+       CONFETTI CONTAINER
+       ============================================ -->
+    <div class="confetti-container" id="confettiContainer"></div>
+
+    <!-- ============================================
+       FLOATING HEARTS CONTAINER
+       ============================================ -->
+    <div class="hearts-container" id="heartsContainer"></div>
+
+
+
+    <!-- ============================================
+       NAVIGATION
+       ============================================ -->
+    <nav class="nav-container">
+        <a href="index.html" class="nav-btn is-visible">← BACK</a>
+        <div class="nav-center">
+        </div>
+        <a href="page3.html" class="nav-btn is-visible">NEXT →</a>
+    </nav>
+
+    <!-- ============================================
+       MAIN SECTIONS
+       ============================================ -->
+    <div class="sections-container">
+
+        <!-- SECTION 1: HERO -->
+        <section class="hero-section">
+            <img src="assets/DP2.jpg" class="hero-avatar fade-in-up" alt="Birthday Boy">
+
+            <h1 class="birthday-title fade-in-up delay-1"><span class="emoji-fix">🎂</span> HAPPY BIRTHDAY! <span
+                    class="emoji-fix">🎂</span></h1>
+
+            <p class="hero-subtitle fade-in-up delay-2">
+                Wishing you the most amazing, incredible, and unforgettable year ahead, Manshu! 🚀✨
+            </p>
+
+            <div class="hero-emoji-row fade-in-up delay-3">
+                🎉 🎊 🥳 🎁 🎈 ✨
+            </div>
+
+            <div class="message-container fade-in-up delay-4">
+                <div class="message-box">
+                    <h3 class="message-title"><span class="emoji-fix">💌</span> A Special Message For You</h3>
+                    <p class="message-text">
+                        <strong>Bhai, aaj tera special din hai!</strong> 🔥<br><br>
+                        Duniya mein chahein kitne bhi dost mil jayen, tujh jaisa koi nahi milega.
+                        Tu mere liye sirf dost nahi, <span class="highlight">family hai</span> - blood relation se bhi
+                        zyada! 💯<br><br>
+                        Jab bhi life ne dhoka diya, jab bhi kuch galat hua, tu pehle aaya support dene.
+                        That's what <strong>real bros</strong> do! Teri friendship ek blessing hai! 🫂✨
+                    </p>
+                </div>
+            </div>
+
+            <div class="gif-row fade-in-up delay-5">
+                <img src="assets/hearthappy.gif" class="cute-gif" alt="">
+                <img src="assets/terlope.gif" class="cute-gif" alt="">
+                <img src="assets/pandacoklat.gif" class="cute-gif" alt="">
+            </div>
+
+        </section>
+
+        <!-- SECTION 2: BRO MESSAGE -->
+        <section class="bro-message-section">
+            <h2 class="section-title">✨ Why You Are Special ✨</h2>
+
+            <div class="cards-grid">
+                <!-- Card 1: Champion -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">🏆</div>
+                    <p class="card-text">
+                        Bro, tu mera sirf dost nahi, mera **Jigri Bhai** hai! 🤞❤️ Duniya ki bheer mein tu hi mera wo
+                        **Best Friend** hai jo bina bole sab samajh jata hai. Tere saath hone se hi life complete lagti
+                        hai. Bhai, tu mera wo constant hai jo kabhi change nahi hua. **Forever my Jigri!** 🫂💫
+                    </p>
+                </div>
+
+                <!-- Card 2: Loyalty -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">🤝</div>
+                    <p class="card-text">
+                        Dosti ka asli matlab maine tujhse seekha hai. Log aate hain aur chale jate hain, par tu hamesha
+                        rock-solid khada raha hai. Teri loyalty unmatched hai bhai! Chahe bura waqt ho ya acha, tu kabhi
+                        peeche nahi hita. Jo trust aur support tune diya hai, wo shayad hi koi aur de paaye. You are the
+                        Definition of a 'Real Brother'. Tere jaisa yaar kismat walon ko milta hai. <strong>Always got
+                            your back!</strong> 💪
+                    </p>
+                </div>
+
+                <!-- Card 3: Goals -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">🎯</div>
+                    <p class="card-text">
+                        Tu mera **Ultimate Problem Solver** hai! Life ki koi bhi situation ho, tere paas humesha sahi
+                        advice aur solution hota hai. Aur sabse badi baat, tu ek **Best Listener** hai. Jab koi nahi
+                        sunta,
+                        tab tu sunta hai aur samajhta hai. Tera yeh supportive nature tujhe sabse alag banata hai.
+                        **You are my Therapy, Bro!** 🧠💬
+                    </p>
+                </div>
+
+                <!-- Card 4: Genuine -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">❤️</div>
+                    <p class="card-text">
+                        Aaj ki duniya mein jahan sab fake hain, wahan tu 100% genuine hai. Na koi drama, na koi dikhawa.
+                        Tu dil ka saaf hai aur yehi teri sabse badi taqat hai. Log tujhse isliye connect karte hain
+                        kyunki tu real hai. Teri baaton mein, tere actions mein, ek honesty hai jo rare hai. Bhai, tu
+                        jaisa hai waisa hi rehna, kyunki 'Original' ki value hamesha zyada hoti hai. <strong>You are
+                            irreplaceable!</strong> 💯🫂
+                    </p>
+                </div>
+
+                <!-- Card 5: Vibe Master -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">⚡</div>
+                    <p class="card-text">
+                        Tera aura hi alag hai mere bhai! Jab tu room mein enter karta hai, toh mood apne aap lift ho
+                        jata hai. Teri presence mein ek alag si masti aur positive energy hai jo sabko attract karti
+                        hai. Chahe koi bhi heavy situation ho ya boring gathering, agar tu wahan hai toh sab set hai. Tu
+                        sirf party ki jaan nahi, balki hum sabki smile ka reason hai. Bas ye energy kabhi kam mat hone
+                        dena. <strong>You are the eternal Spark!</strong> ⚡✨
+                    </p>
+                </div>
+
+                <!-- Card 6: Partner In Crime -->
+                <div class="bro-card" data-tilt>
+                    <div class="card-icon">🚀</div>
+                    <p class="card-text">
+                        From silly jokes to late-night serious talks, tere saath bitaya har moment ek epic memory ban
+                        jata hai. Humne jitne kaand kiye hain aur jitni masti ki hai, wo legendary stories hain! Tu mera
+                        wo constant support system hai jiske saath main duniya ki koi bhi baat share kar sakta hoon.
+                        Years beet jayenge, par hamari ye insane bonding aur craze kabhi fade nahi hoga. Agle adventures
+                        ke liye ready rehna bhai! <strong>Together till the end!</strong> 🚀🌍
+                    </p>
+                </div>
+            </div>
+
+            <!-- REMOVED SCROLL INDICATOR -->
+        </section>
+        <div class="gif-row" style="margin-top: 50px;">
+            <img src="assets/gemoy.gif" class="cute-gif" alt="">
+            <img src="assets/panah.gif" class="cute-gif" alt="">
+        </div>
+        </section>
+
+        <!-- SECTION 3: SIGNATURE -->
+        <section class="signature-section">
+            <img src="assets/ciumin.gif" class="signature-gif" alt="">
+
+            <h2 class="signature-text">Forever Your Bro <span class="emoji-fix">🔥🤝</span></h2>
+
+            <p class="signature-from">— Tera Wala</p>
+
+            <div class="final-emojis">🎂 🎉 🥳 💖 ✨</div>
+        </section>
+    </div>
+
+    <!-- ============================================
+       JAVASCRIPT
+       ============================================ -->
+    <script>
+        // ============================================
+        // CREATE CONFETTI
+        // ============================================
+        function createConfetti() {
+            const container = document.getElementById('confettiContainer');
+            const colors = ['#00d4ff', '#00ff88', '#ff00ff', '#ffff00', '#ff6b6b', '#ffffff'];
+            const shapes = ['confetti-circle', 'confetti-square', 'confetti-star'];
+
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.className = `confetti ${shapes[Math.floor(Math.random() * shapes.length)]}`;
+                confetti.style.left = Math.random() * 100 + '%';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = (Math.random() * 4 + 4) + 's';
+                confetti.style.animationDelay = Math.random() * 8 + 's';
+                container.appendChild(confetti);
+            }
+        }
+
+        createConfetti();
+
+        // ============================================
+        // CREATE FLOATING HEARTS
+        // ============================================
+        function createFloatingHearts() {
+            const container = document.getElementById('heartsContainer');
+            const hearts = ['💙', '💜', '💖', '✨', '🎂', '🎁', '⭐', '🌟'];
+
+            for (let i = 0; i < 25; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'floating-heart';
+                heart.textContent = hearts[Math.floor(Math.random() * hearts.length)];
+                heart.style.left = Math.random() * 100 + '%';
+                heart.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                heart.style.animationDelay = Math.random() * 15 + 's';
+                heart.style.fontSize = (Math.random() * 1 + 1) + 'rem';
+                container.appendChild(heart);
+            }
+        }
+
+        createFloatingHearts();
+
+        // ============================================
+        // MUSIC TOGGLE
+        // ============================================
+        const musicBtn = document.getElementById('musicBtn');
+        const bgMusic = document.getElementById('bgMusic');
+        let isPlaying = true;
+
+        // Try to autoplay
+        bgMusic.volume = 0.7;
+        bgMusic.play().catch(function () {
+            isPlaying = false;
+            musicBtn.textContent = '🔊 MUSIC';
+        });
+
+        musicBtn.addEventListener('click', function () {
+            if (isPlaying) {
+                bgMusic.pause();
+                musicBtn.textContent = '🔊 MUSIC';
+            } else {
+                bgMusic.play();
+                musicBtn.textContent = '🔇 PAUSE';
+            }
+            isPlaying = !isPlaying;
+        });
+
+        // ============================================
+        // SCROLL ANIMATIONS
+        // ============================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver(function (entries) {
+            entries.forEach(function (entry) {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.bro-card').forEach(function (card, index) {
+            card.style.opacity = '0';
+            card.style.transform = 'translateX(-50px)';
+            card.style.transition = `all 0.6s ease ${index * 0.15}s`;
+            observer.observe(card);
+        });
+
+        // ============================================
+        // PARALLAX EFFECT ON SCROLL
+        // ============================================
+        window.addEventListener('scroll', function () {
+            const scrolled = window.pageYOffset;
+            const heroAvatar = document.querySelector('.hero-avatar');
+            const birthdayTitle = document.querySelector('.birthday-title');
+
+            if (heroAvatar) {
+                heroAvatar.style.transform = `translateY(${scrolled * 0.3}px)`;
+            }
+            if (birthdayTitle) {
+                birthdayTitle.style.transform = `translateY(${scrolled * 0.2}px)`;
+            }
+        });
+
+        // ============================================
+        // FLOATING PARTICLES SYSTEM
+        // ============================================
+        function createFloatingParticles() {
+            const particlesContainer = document.createElement('div');
+            particlesContainer.className = 'floating-particles';
+            particlesContainer.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                pointer-events: none;
+                z-index: 5;
+                overflow: hidden;
+            `;
+            document.body.appendChild(particlesContainer);
+
+            const particleCount = 30;
+            const emojis = ['✨', '💫', '⭐', '🌟', '💖', '💝', '🎈', '🎉', '🎊'];
+
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+                particle.style.cssText = `
+                    position: absolute;
+                    font-size: ${Math.random() * 20 + 15}px;
+                    left: ${Math.random() * 100}%;
+                    top: ${Math.random() * 100}%;
+                    opacity: ${Math.random() * 0.5 + 0.3};
+                    animation: floatParticle ${Math.random() * 10 + 15}s linear infinite;
+                    animation-delay: ${Math.random() * 5}s;
+                `;
+                particlesContainer.appendChild(particle);
+            }
+
+            const style = document.createElement('style');
+            style.textContent = `
+                @keyframes floatParticle {
+                    0% {
+                        transform: translateY(0) rotate(0deg);
+                        opacity: 0;
+                    }
+                    10% {
+                        opacity: 0.8;
+                    }
+                    90% {
+                        opacity: 0.8;
+                    }
+                    100% {
+                        transform: translateY(-100vh) rotate(360deg);
+                        opacity: 0;
+                    }
+                }
+            `;
+            document.head.appendChild(style);
+        }
+        createFloatingParticles();
+
+        // ============================================
+        // INTERACTIVE CURSOR TRAIL
+        // ============================================
+        let cursorTrail = [];
+        const maxTrailLength = 20;
+
+        document.addEventListener('mousemove', function (e) {
+            const trail = document.createElement('div');
+            trail.className = 'cursor-trail';
+            trail.style.cssText = `
+                position: fixed;
+                width: 8px;
+                height: 8px;
+                background: radial-gradient(circle, rgba(0,212,255,0.8), transparent);
+                border-radius: 50%;
+                pointer-events: none;
+                z-index: 9999;
+                left: ${e.clientX}px;
+                top: ${e.clientY}px;
+                animation: fadeTrail 0.8s ease-out forwards;
+            `;
+            document.body.appendChild(trail);
+            cursorTrail.push(trail);
+
+            if (cursorTrail.length > maxTrailLength) {
+                const oldTrail = cursorTrail.shift();
+                if (oldTrail && oldTrail.parentNode) {
+                    oldTrail.parentNode.removeChild(oldTrail);
+                }
+            }
+
+            setTimeout(() => {
+                if (trail && trail.parentNode) {
+                    trail.parentNode.removeChild(trail);
+                }
+            }, 800);
+        });
+
+        const trailStyle = document.createElement('style');
+        trailStyle.textContent = `
+            @keyframes fadeTrail {
+                to {
+                    opacity: 0;
+                    transform: scale(2);
+                }
+            }
+        `;
+        document.head.appendChild(trailStyle);
+
+        // ============================================
+        // CLICK BURST EFFECT
+        // ============================================
+        document.addEventListener('click', function (e) {
+            const burst = document.createElement('div');
+            burst.className = 'click-burst';
+            const colors = ['#00d4ff', '#ff00ff', '#00ff88', '#ffdd00'];
+            const color = colors[Math.floor(Math.random() * colors.length)];
+
+            burst.style.cssText = `
+                position: fixed;
+                width: 100px;
+                height: 100px;
+                left: ${e.clientX - 50}px;
+                top: ${e.clientY - 50}px;
+                pointer-events: none;
+                z-index: 9998;
+            `;
+
+            for (let i = 0; i < 12; i++) {
+                const particle = document.createElement('div');
+                const angle = (360 / 12) * i;
+                particle.style.cssText = `
+                    position: absolute;
+                    width: 6px;
+                    height: 6px;
+                    background: ${color};
+                    border-radius: 50%;
+                    left: 50%;
+                    top: 50%;
+                    animation: burstOut 0.6s ease-out forwards;
+                    transform-origin: center;
+                    transform: rotate(${angle}deg);
+                `;
+                burst.appendChild(particle);
+            }
+
+            document.body.appendChild(burst);
+            setTimeout(() => {
+                if (burst && burst.parentNode) {
+                    burst.parentNode.removeChild(burst);
+                }
+            }, 600);
+        });
+
+        const burstStyle = document.createElement('style');
+        burstStyle.textContent = `
+            @keyframes burstOut {
+                to {
+                    transform: translateX(50px) rotate(360deg);
+                    opacity: 0;
+                }
+            }
+        `;
+        document.head.appendChild(burstStyle);
+
+        // ============================================
+        // SMOOTH SCROLL WITH EASING
+        // ============================================
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // ============================================
+        // TILT EFFECT ON CARDS
+        // ============================================
+        document.querySelectorAll('.message-box, .bro-card').forEach(card => {
+            card.addEventListener('mousemove', function (e) {
+                const rect = card.getBoundingClientRect();
+                const x = e.clientX - rect.left;
+                const y = e.clientY - rect.top;
+
+                const centerX = rect.width / 2;
+                const centerY = rect.height / 2;
+
+                const rotateX = (y - centerY) / 20;
+                const rotateY = (centerX - x) / 20;
+
+                card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale(1.02)`;
+            });
+
+            card.addEventListener('mouseleave', function () {
+                card.style.transform = 'perspective(1000px) rotateX(0) rotateY(0) scale(1)';
+            });
+        });
+
+        // ============================================
+        // TYPING ANIMATION FOR MESSAGES
+        // ============================================
+        function typeWriter(element, text, speed = 50) {
+            let i = 0;
+            element.textContent = '';
+            element.style.opacity = '1';
+
+            function type() {
+                if (i < text.length) {
+                    element.textContent += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // Apply to first message when visible
+        const firstMessage = document.querySelector('.message-text');
+        if (firstMessage) {
+            const originalText = firstMessage.textContent;
+            const messageObserver = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        typeWriter(firstMessage, originalText, 30);
+                        messageObserver.unobserve(entry.target);
+                    }
+                });
+            }, { threshold: 0.5 });
+            messageObserver.observe(firstMessage);
+        }
+
+        // ============================================
+        // EMOJI RAIN ON SCROLL
+        // ============================================
+        let lastScrollTop = 0;
+        window.addEventListener('scroll', function () {
+            const st = window.pageYOffset || document.documentElement.scrollTop;
+            if (st > lastScrollTop && st > 100) {
+                if (Math.random() > 0.95) {
+                    createEmojiRain();
+                }
+            }
+            lastScrollTop = st <= 0 ? 0 : st;
+        });
+
+        function createEmojiRain() {
+            const emoji = document.createElement('div');
+            const emojis = ['🎂', '🎉', '🎊', '🎈', '💝', '✨'];
+            emoji.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+            emoji.style.cssText = `
+                position: fixed;
+                left: ${Math.random() * 100}%;
+                top: -50px;
+                font-size: ${Math.random() * 20 + 20}px;
+                pointer-events: none;
+                z-index: 1000;
+                animation: rainFall ${Math.random() * 2 + 3}s linear forwards;
+            `;
+            document.body.appendChild(emoji);
+
+            setTimeout(() => {
+                if (emoji && emoji.parentNode) {
+                    emoji.parentNode.removeChild(emoji);
+                }
+            }, 5000);
+        }
+
+        const rainStyle = document.createElement('style');
+        rainStyle.textContent = `
+            @keyframes rainFall {
+                to {
+                    top: 100vh;
+                    transform: rotate(360deg);
+                }
+            }
+        `;
+        document.head.appendChild(rainStyle);
+
+        // ============================================
+        // CONSOLE MESSAGE
+        // ============================================
+        console.log('%c🎂 HAPPY BIRTHDAY MANSHU! 🎂', 'font-size: 24px; font-weight: bold; color: #00d4ff;');
+        console.log('%cYou are amazing! 💙', 'font-size: 14px; color: #00ff88;');
+    </script>
+    <script src="music.js"></script>
+</body>
+
+</html>
